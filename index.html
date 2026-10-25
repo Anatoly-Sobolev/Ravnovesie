@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Химическое равновесие: реакция продолжается</title>
+<meta name="description" content="Интерактивный учебный сайт о химическом равновесии для 9–11 класса и подготовки к ОГЭ/ЕГЭ: динамика, принцип Ле Шателье, катализатор, константа равновесия, алгоритм и тест.">
+<meta name="theme-color" content="#0a1226">
+<link rel="icon" href="data:,">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+:root{
+  --bg:#0a1226;--bg2:#101c3a;--ink:#10203d;--muted:#3b4b69;--card:#f3f7ff;--line:#d3ddf0;
+  --cool:#6aa7ff;--cool-d:#1f56b8;--violet:#9b86ff;--violet-d:#5a3fd6;--amber:#ffb74d;--amber-d:#8a5200;--coral:#ff7a5c;--coral-d:#b3321a;--ok:#2bd4a0;--ok-d:#0b7a5a;--bad-d:#a8201f;
+  --glass:rgba(255,255,255,.07);--radius:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:120px;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.6;color:#e9f0ff;background:var(--bg);overflow-x:hidden;min-height:100vh;
+  background-image:radial-gradient(1100px 700px at 85% -10%,#24408c55,transparent),radial-gradient(900px 600px at -10% 45%,#4a2a8a3a,transparent),linear-gradient(180deg,#0a1226,#0d1a38 50%,#0a1226)}
+img,svg{max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+h1,h2,h3,h4{line-height:1.2;margin:0 0 .5em}
+p{margin:0 0 .9em}
+:focus-visible{outline:3px solid #ffd54a;outline-offset:3px;border-radius:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-70px;background:#fff;color:#000;padding:10px 16px;border-radius:10px;z-index:100;font-weight:700}
+.skip:focus{top:10px}
+.wrap{width:100%;max-width:1160px;margin:0 auto;padding:0 20px}
+.progress{position:fixed;left:0;top:0;right:0;height:4px;z-index:80;pointer-events:none}
+.progress i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--cool),var(--violet),var(--amber),var(--coral))}
+
+/* header */
+header.top{position:sticky;top:0;z-index:70;background:#0a1226ee;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff1c}
+header.top .wrap{display:flex;align-items:center;gap:14px;padding-top:8px;padding-bottom:8px;max-width:1360px}
+.brand{font-weight:800;text-decoration:none;display:flex;align-items:center;gap:10px;font-size:16px;white-space:nowrap}
+.brand b{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--cool),var(--violet));color:#07122a;font-size:15px}
+nav.menu{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+nav.menu::-webkit-scrollbar{display:none}
+nav.menu a{white-space:nowrap;text-decoration:none;padding:8px 12px;border-radius:12px;font-weight:600;font-size:14.5px;color:#cfdcff;border:1px solid transparent;min-height:40px;display:inline-flex;align-items:center}
+nav.menu a:hover{background:#ffffff14}
+nav.menu a[aria-current=true]{background:linear-gradient(135deg,#6aa7ff44,#9b86ff44);border-color:#ffffff40;color:#fff;box-shadow:inset 0 -3px 0 var(--amber)}
+.pause{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid #ffffff44;background:#ffffff12;font-weight:700;font-size:14px;min-height:44px;white-space:nowrap}
+.pause .knob{width:34px;height:20px;border-radius:99px;background:#44537a;position:relative;transition:background .2s;flex:none}
+.pause .knob::after{content:"";position:absolute;left:3px;top:3px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .2s}
+.pause[aria-checked=true] .knob{background:var(--amber)}
+.pause[aria-checked=true] .knob::after{transform:translateX(14px)}
+@media(max-width:860px){header.top .wrap{flex-wrap:wrap}.brand{order:1}.pause{order:2;margin-left:auto}nav.menu{order:3;flex:1 0 100%}}
+@media(max-width:380px){.brand span{display:none}}
+
+section{position:relative;padding:68px 0 20px}
+.sec-tag{display:inline-block;padding:4px 14px;border-radius:999px;background:#ffffff14;border:1px solid #ffffff30;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#bcd0ff;margin-bottom:12px}
+h2{font-size:clamp(26px,4vw,40px);font-weight:800}
+h3{font-size:clamp(19px,2.4vw,24px);font-weight:750}
+.lead{font-size:clamp(17px,1.9vw,20px);color:#cfdcff;max-width:780px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media(max-width:980px){.grid3{grid-template-columns:1fr}}
+@media(max-width:860px){.grid2{grid-template-columns:1fr}}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease;transition-delay:calc(var(--i,0)*80ms)}
+.js .rv.in{opacity:1;transform:none}
+
+/* cards */
+.card{background:var(--card);color:var(--ink);border-radius:var(--radius);padding:24px;box-shadow:0 20px 40px -22px #000c;position:relative}
+.card h3,.card h4{color:#0d1b38}
+.card p{color:var(--muted)}
+.card strong{color:#0d1b38}
+.panel{background:var(--glass);border:1px solid #ffffff26;border-radius:var(--radius);padding:20px;box-shadow:0 22px 50px -28px #000,inset 0 1px 0 #ffffff1c;backdrop-filter:blur(6px)}
+.callout{border-radius:16px;padding:14px 18px;border-left:6px solid var(--amber);background:#fff3de;color:#4a2d00;font-size:16px}
+.callout.bad{border-color:var(--coral);background:#ffe9e4;color:#5a1409}
+.callout.ok{border-color:var(--ok);background:#dcf8ee;color:#064633}
+.callout b{color:inherit}
+.dark-callout{border-radius:16px;padding:14px 18px;border:1px solid #ffffff30;background:#ffffff0e;color:#e4ecff}
+sub,sup{line-height:0}
+.eqn{font-weight:700;font-size:clamp(17px,2.2vw,22px);letter-spacing:.01em}
+.state{font-size:.72em;font-weight:600;opacity:.8}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;min-height:48px;border-radius:14px;border:2px solid transparent;font-weight:750;font-size:16px;text-decoration:none;background:linear-gradient(135deg,var(--cool),var(--violet));color:#07122a;transition:transform .15s,box-shadow .2s,filter .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px -10px #000a;filter:brightness(1.07)}
+.btn:active{transform:translateY(0)}
+.btn.warm{background:linear-gradient(135deg,var(--amber),var(--coral));color:#2a0f00}
+.btn.ghost{background:#ffffff12;border-color:#ffffff55;color:#fff}
+.btn.light{background:#fff;border-color:#b7c6ea;color:#16306a}
+.btn.light:hover{background:#eaf0ff}
+.btn[aria-disabled=true],.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.sm{padding:8px 14px;min-height:44px;font-size:15px}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.tab{padding:9px 16px;min-height:44px;border-radius:12px;border:2px solid #b7c6ea;background:#fff;color:#16306a;font-weight:700}
+.tab[aria-selected=true]{background:#16306a;color:#fff;border-color:#16306a}
+.dark .tab{background:#ffffff10;border-color:#ffffff44;color:#e4ecff}
+.dark .tab[aria-selected=true]{background:var(--amber);border-color:var(--amber);color:#2a1500}
+
+/* hero */
+.hero{padding-top:44px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:30px;align-items:center}
+@media(max-width:980px){.hero-grid{grid-template-columns:1fr}}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:6px 16px;border-radius:999px;background:linear-gradient(135deg,#6aa7ff33,#9b86ff33);border:1px solid #ffffff40;font-weight:700;font-size:14px;margin-bottom:16px}
+.hero h1{font-size:clamp(34px,5.4vw,60px);font-weight:850;letter-spacing:-.01em;margin-bottom:.35em}
+.hero h1 span{background:linear-gradient(90deg,var(--cool),var(--violet) 45%,var(--amber) 75%,var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{font-size:clamp(19px,2.3vw,26px);font-weight:650;color:#fff;border-left:5px solid var(--amber);padding-left:16px;margin:18px 0}
+
+/* chamber */
+.ch-head{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;font-weight:700;font-size:14px}
+.ch-head .l{color:#a9c6ff}
+.ch-head .r{color:#ffcf8a;text-align:right}
+.ch-head small{display:block;font-weight:500;color:#cfdcff;font-size:13px}
+.cv svg{display:block;width:100%;height:auto}
+.ch-foot{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:#bcd0ff;margin-top:4px;flex-wrap:wrap}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:10px;font-size:14px;color:#dbe6ff}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend svg{width:34px;height:24px;flex:none}
+.meters{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.meter{background:#0b1634;border:1px solid #ffffff22;border-radius:14px;padding:8px 12px}
+.meter b{display:block;font-size:13px;color:#bcd0ff;font-weight:600}
+.meter em{font-style:normal;font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}
+.meter .bar{height:8px;border-radius:99px;background:#1a2a55;margin-top:4px;overflow:hidden}
+.meter .bar i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--cool)}
+.meter.back .bar i{background:var(--coral)}
+.statusline{margin-top:10px;padding:8px 14px;border-radius:12px;background:#ffffff10;border:1px solid #ffffff22;font-weight:650;font-size:15px}
+.statusline.eq{background:#2bd4a01c;border-color:#2bd4a088;color:#baf5e2}
+.statusline.tr{background:#ffb74d1c;border-color:#ffb74d88;color:#ffe2b0}
+.graph svg{display:block;width:100%;height:auto;background:#0b1634;border:1px solid #ffffff22;border-radius:14px}
+.graph .ax{stroke:#5b7099;stroke-width:1}
+.graph .gl{stroke:#ffffff14;stroke-width:1}
+.graph text{fill:#bcd0ff;font-size:11px}
+.graph .lf{fill:none;stroke:#7fb4ff;stroke-width:2.6}
+.graph .lr{fill:none;stroke:#ff9a76;stroke-width:2.6;stroke-dasharray:7 5}
+.graph .lc1{fill:none;stroke:#9b86ff;stroke-width:2.6}
+.graph .lc2{fill:none;stroke:#ffb74d;stroke-width:2.6;stroke-dasharray:7 5}
+.graph .lk{fill:none;stroke:#2bd4a0;stroke-width:2.6}
+.graph .cur{stroke:#fff;stroke-width:1.5;stroke-dasharray:3 3}
+.gl-leg{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:#cfdcff;margin:6px 0 0}
+.gl-leg i{display:inline-block;width:26px;height:0;border-top:3px solid;vertical-align:middle;margin-right:6px}
+.gl-leg i.d{border-top-style:dashed}
+
+/* chamber svg parts */
+.res{fill:#0c1735;stroke:#4a6498;stroke-width:2}
+.gasf{fill:#15264f}
+.fillL{fill:#6aa7ff;opacity:.18}
+.fillR{fill:#ffb74d;opacity:.2}
+.chan{fill:#0f1c40;stroke:#4a6498;stroke-width:2}
+.lane{stroke-linecap:round}
+.lane.f{stroke:#7fb4ff}
+.lane.r{stroke:#ff9a76}
+.lidr{fill:#c4d2f5}
+.lidrod{stroke:#8aa1d6;stroke-width:5}
+.beam{fill:#d7e2ff}
+.pivot{fill:#8aa1d6}
+.mk{fill:#fff;stroke:#0a1226;stroke-width:2}
+.trk{stroke:#4a6498;stroke-width:6;stroke-linecap:round}
+.lbl{font-weight:800;font-size:26px;fill:#e9f0ff}
+
+/* experiment ui */
+.ctrl{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.ctrl .grp{display:contents}
+.ctrl .btn{font-size:15px;padding:10px 12px}
+.steps{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.steps li{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:14px;background:#ffffff0c;border:1px solid #ffffff1c;opacity:.5;transition:opacity .3s,background .3s}
+.steps li .n{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#2b3c6b;font-weight:800;font-size:14px}
+.steps li.act{opacity:1;background:#6aa7ff22;border-color:#6aa7ff88}
+.steps li.done{opacity:1}
+.steps li.done .n{background:var(--ok);color:#052b1f}
+.steps li.act .n{background:var(--amber);color:#2a1500}
+.steps li b{display:block;font-size:13px;color:#bcd0ff;text-transform:uppercase;letter-spacing:.05em}
+.steps li span{font-size:16px}
+.result{margin-top:12px;padding:16px 18px;border-radius:16px;font-size:17px;border:2px solid #ffffff33;background:#ffffff0e;min-height:60px}
+.result .verdict{display:inline-flex;align-items:center;gap:8px;padding:4px 14px;border-radius:999px;font-weight:850;margin-bottom:6px;font-size:18px}
+.verdict.right{background:var(--amber);color:#2a1500}
+.verdict.left{background:var(--cool);color:#06193a}
+.verdict.none{background:#dfe6fa;color:#1a2547}
+.readout{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{display:inline-flex;gap:6px;align-items:center;padding:5px 12px;border-radius:99px;background:#ffffff14;border:1px solid #ffffff2c;font-size:14px;font-weight:650;font-variant-numeric:tabular-nums}
+.chip.hot{background:#ff7a5c33;border-color:#ff7a5c}
+.chip.cold{background:#6aa7ff33;border-color:#6aa7ff}
+.qchip{display:inline-flex;align-items:center;gap:4px;padding:1px 10px;border-radius:99px;background:linear-gradient(135deg,#ff7a5c,#ffb74d);color:#2a0f00;font-weight:850;font-size:.85em}
+.qchip.on{box-shadow:0 0 0 3px #ffb74d66,0 0 18px #ff7a5c}
+.eqline{color:#e9f0ff;padding:10px 14px;border-radius:14px;background:#0b1634;border:1px solid #ffffff22;margin:8px 0;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.cap{font-size:13px;color:#a9bbe6}
+.mini-card{background:#0f1c40;border:1px solid #ffffff26;border-radius:20px;padding:18px}
+
+/* sections */
+.cmp svg{width:100%;height:auto;background:#0b1634;border:1px solid #ffffff22;border-radius:14px}
+.cmp .cA{fill:none;stroke:#9b86ff;stroke-width:4}
+.cmp .cB{fill:none;stroke:#ffb74d;stroke-width:4;stroke-dasharray:9 6}
+.cmp text{fill:#cfdcff;font-size:13px}
+.draw{stroke-dasharray:1;}
+.range{width:100%;accent-color:var(--amber);height:32px}
+.numgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:10px}
+.numgrid div{background:#0b1634;border:1px solid #ffffff22;border-radius:12px;padding:6px 12px;font-size:14px;color:#bcd0ff}
+.numgrid b{display:block;font-size:19px;color:#fff;font-variant-numeric:tabular-nums}
+
+/* rules cards */
+.rule{display:flex;flex-direction:column;gap:10px}
+.rule .rl{padding:10px 14px;border-radius:14px;background:#e8efff;color:#14285a;font-weight:700;font-size:16px}
+.rule .mini-card{color:#e9f0ff}
+.rule .mini-card .btn{font-size:14px}
+.rule .btnrow{margin:8px 0}
+.outbox{padding:10px 12px;border-radius:12px;background:#eef2ff;color:#1b2b4d;font-size:15.5px;border-left:5px solid var(--violet)}
+.outbox b{color:#0d1b38}
+.cnt{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-weight:750;margin:8px 0}
+.cnt .side{padding:6px 12px;border-radius:12px;background:#0b1634;border:1px solid #ffffff2a;color:#fff}
+.cnt s{opacity:.55}
+.cnt .gt{font-size:20px}
+
+/* kc */
+.kcbox{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:clamp(20px,3vw,30px);font-weight:700;padding:16px;border-radius:16px;background:#0b1634;border:1px solid #ffffff22;color:#fff;overflow-x:auto}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle}
+.frac .num{border-bottom:3px solid #fff;padding:0 8px 4px;text-align:center}
+.frac .den{padding:4px 8px 0;text-align:center}
+.term{border-radius:8px;padding:0 2px;transition:background .25s}
+.term.hl{background:#ffb74d55;box-shadow:0 0 0 3px #ffb74d55}
+.popin{animation:popin .55s cubic-bezier(.2,.9,.3,1.2) both;animation-delay:calc(var(--d,0)*90ms)}
+@keyframes popin{from{opacity:0;transform:translateY(12px) scale(.85)}}
+.sp{border:0;background:#ffffff14;color:#fff;font-weight:800;border-radius:10px;padding:2px 10px;min-height:40px;font-size:inherit;border:1px solid #ffffff33}
+.sp:hover,.sp.hl{background:#ffb74d55;border-color:var(--amber)}
+.sp sub,.sp sup{font-size:.7em}
+.ibar{height:34px;border-radius:10px;overflow:hidden;display:flex;background:#0b1634;border:1px solid #ffffff2a}
+.ibar i{display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:800;font-size:13px;color:#06122a;transition:flex-basis .5s ease;overflow:hidden;white-space:nowrap}
+.ibar i.p{background:var(--amber)}
+.ibar i.q{background:var(--cool)}
+.kcases{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+@media(max-width:700px){.kcases{grid-template-columns:1fr}}
+.kcases .kcase{padding:12px;border-radius:14px;background:#ffffff0e;border:1px solid #ffffff26;font-size:15px}
+.kcases .kcase.on{border-color:var(--amber);background:#ffb74d22}
+.task .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:12px 0}
+
+/* flow */
+.flow{display:grid;gap:0;justify-items:center}
+.node{width:100%;max-width:760px;padding:14px 18px;border-radius:16px;background:#fff;color:var(--ink);border:3px solid #c9d6f3;display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;transition:transform .35s,border-color .35s,box-shadow .35s,background .35s}
+.node .nn{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#16306a;color:#fff;font-weight:850}
+.node b{color:#0d1b38}
+.node.on{border-color:var(--amber);background:#fff8e8;transform:scale(1.025);box-shadow:0 0 0 5px #ffb74d44,0 18px 40px -16px #000}
+.arrow{width:4px;height:26px;background:linear-gradient(#6aa7ff,#9b86ff);position:relative;margin:2px 0}
+.arrow::after{content:"";position:absolute;left:-7px;bottom:-8px;border:9px solid transparent;border-top:12px solid #9b86ff;border-bottom:0}
+.branches{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:760px}
+@media(max-width:620px){.branches{grid-template-columns:1fr}}
+.br{padding:10px 12px;border-radius:14px;background:#fff;color:var(--ink);border:3px solid #c9d6f3;font-size:15px;transition:border-color .3s,background .3s,transform .3s}
+.br b{color:#0d1b38;display:block}
+.br.on{border-color:var(--amber);background:#fff8e8;transform:translateY(-3px)}
+.exwrap{margin-top:22px}
+.exstep{min-height:90px;font-size:17px}
+
+/* quiz */
+.qopts{display:grid;gap:10px;margin:14px 0}
+.opt{text-align:left;padding:13px 16px;min-height:48px;border-radius:14px;background:#fff;color:var(--ink);border:2px solid #b7c6ea;font-size:16.5px;font-weight:600;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:center}
+.opt .mk2{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;border:2px solid #7e92c2;font-weight:800;font-size:14px}
+.opt:hover:not(:disabled){border-color:var(--violet-d);background:#f0ecff}
+.opt[aria-pressed=true]{border-color:var(--violet-d);background:#ece7ff}
+.opt.right{border-color:var(--ok-d);background:#dcf8ee}
+.opt.right .mk2{background:var(--ok-d);color:#fff;border-color:var(--ok-d)}
+.opt.wrong{border-color:var(--bad-d);background:#ffe5e3}
+.opt.wrong .mk2{background:var(--bad-d);color:#fff;border-color:var(--bad-d)}
+.opt:disabled{cursor:default}
+.qprog{height:8px;border-radius:99px;background:#d3ddf0;overflow:hidden;margin-bottom:14px}
+.qprog i{display:block;height:100%;background:linear-gradient(90deg,var(--cool),var(--violet));transform-origin:0 50%;transition:transform .4s}
+.fb{padding:12px 16px;border-radius:14px;margin-top:6px;font-size:16px}
+.fb.ok{background:#dcf8ee;color:#064633;border-left:6px solid var(--ok-d)}
+.fb.no{background:#ffe9e4;color:#5a1409;border-left:6px solid var(--coral-d)}
+.score{font-size:clamp(40px,7vw,64px);font-weight:900;color:#16306a}
+.weak a{display:inline-block;margin:4px 6px 0 0;padding:6px 12px;border-radius:99px;background:#16306a;color:#fff;text-decoration:none;font-weight:700;font-size:14.5px}
+
+/* sheet */
+.sheet .card h4{margin-bottom:.3em}
+.sheet ul{margin:0;padding-left:20px;color:var(--muted)}
+.sheet li{margin-bottom:5px}
+.anchor{font-size:clamp(24px,3.6vw,38px);font-weight:850;text-align:center;padding:32px 20px;border-radius:26px;background:linear-gradient(135deg,#6aa7ff2e,#9b86ff2e,#ffb74d2e);border:1px solid #ffffff3a;margin:26px 0}
+.tutor{display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:space-between;padding:26px;border-radius:26px;background:linear-gradient(120deg,#16275a,#3a1f7a 60%,#7a1f58);border:1px solid #ffffff40}
+.tutor .who{display:flex;align-items:center;gap:16px}
+.tutor .av{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:22px;background:linear-gradient(135deg,var(--amber),var(--coral));color:#2a0f00;flex:none}
+.tutor .btn{font-size:18px;padding:14px 28px}
+footer{padding:36px 0 60px;color:#9fb3e6;font-size:14px;text-align:center}
+.totop{position:fixed;right:16px;bottom:16px;z-index:60;width:52px;height:52px;border-radius:50%;border:1px solid #ffffff55;background:#16306aee;color:#fff;font-size:22px;display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.totop.show{opacity:1;pointer-events:auto}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0ms!important}
+  .js .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к основному содержимому</a>
+<div class="progress" aria-hidden="true"><i id="progress"></i></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Химия с Екатериной Соболевой — в начало"><b>⇄</b><span>Химия с Екатериной Соболевой</span></a>
+    <nav class="menu" id="nav" aria-label="Разделы страницы">
+      <a href="#top">Старт</a>
+      <a href="#dyn">Динамика</a>
+      <a href="#lab">Лаборатория</a>
+      <a href="#rules">3 фактора</a>
+      <a href="#cat">Катализатор</a>
+      <a href="#kc">Kc</a>
+      <a href="#algo">Алгоритм</a>
+      <a href="#quiz">Тест</a>
+      <a href="#sheet">Шпаргалка</a>
+    </nav>
+    <button class="pause" id="pauseBtn" type="button" role="switch" aria-checked="false"><span class="knob" aria-hidden="true"></span><span id="pauseTxt">Пауза анимации</span></button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top" aria-labelledby="h1">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="badge">Химия • 9–11 класс • ОГЭ/ЕГЭ</div>
+      <h1 id="h1">Химическое равновесие: <span>реакция продолжается</span></h1>
+      <p class="sub">Равновесие — не остановка, а равенство скоростей</p>
+      <p class="lead">Справа — реакционная камера. Частицы реагентов слева превращаются в продукты справа, а продукты тут же распадаются обратно. Смотрите, как два потока сначала различаются, а потом выравниваются — и не прекращаются никогда.</p>
+      <div class="btnrow" style="margin-top:20px">
+        <a class="btn warm" href="#dyn" id="ctaStart">Запустить реакцию →</a>
+        <button class="btn ghost" type="button" id="heroRestart">↺ Начать с t = 0</button>
+      </div>
+      <p class="cap" style="margin-top:14px">Модель учебная: частицы условны, а числа подобраны для наглядности. Она показывает закономерности, а не точную микрокинетику.</p>
+    </div>
+    <div class="panel" id="heroPanel">
+      <div id="heroChamber"></div>
+      <div class="meters">
+        <div class="meter"><b>Скорость прямой реакции v→</b><em id="heroVf">0,00</em><div class="bar"><i id="heroVfB"></i></div></div>
+        <div class="meter back"><b>Скорость обратной реакции v←</b><em id="heroVr">0,00</em><div class="bar"><i id="heroVrB"></i></div></div>
+      </div>
+      <div class="statusline" id="heroStatus">t = 0: продуктов ещё нет, v← ≈ 0</div>
+      <div class="graph" id="heroGraph" style="margin-top:10px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 1. DYNAMICS ================= -->
+<section id="dyn" aria-labelledby="h-dyn">
+  <div class="wrap">
+    <span class="sec-tag rv">Раздел 1</span>
+    <h2 id="h-dyn" class="rv">Обратимые реакции и динамика</h2>
+    <p class="lead rv">Одни реакции идут «до конца» — исходные вещества кончаются. Другие идут в обе стороны сразу. Именно у вторых и возникает равновесие.</p>
+
+    <div class="grid2" style="margin-top:24px">
+      <div class="card rv" style="--i:1">
+        <h3>Необратимая или обратимая?</h3>
+        <div class="tabs" role="tablist" aria-label="Тип реакции">
+          <button class="tab" role="tab" id="cmpT0" aria-selected="true" aria-controls="cmpPanel" data-cmp="0">Необратимая →</button>
+          <button class="tab" role="tab" id="cmpT1" aria-selected="false" aria-controls="cmpPanel" data-cmp="1" tabindex="-1">Обратимая ⇄</button>
+        </div>
+        <div id="cmpPanel" role="tabpanel" aria-labelledby="cmpT0" class="cmp">
+          <svg viewBox="0 0 400 210" role="img" aria-label="График изменения концентраций во времени" id="cmpSvg">
+            <defs><clipPath id="cmpClip"><rect id="cmpClipR" x="40" y="0" width="350" height="210" style="transform-box:fill-box;transform-origin:0 50%"/></clipPath></defs><line x1="40" y1="180" x2="385" y2="180" stroke="#5b7099"/><line x1="40" y1="15" x2="40" y2="180" stroke="#5b7099"/>
+            <text x="300" y="200">время t →</text><text x="46" y="26">c</text>
+            <path id="cmpA" class="cA" d="" clip-path="url(#cmpClip)"/>
+            <path id="cmpB" class="cB" d="" clip-path="url(#cmpClip)"/>
+            <text id="cmpLa" x="150" y="50" fill="#bda9ff">исходные вещества</text>
+            <text id="cmpLb" x="150" y="150" fill="#ffd08a">продукты</text>
+          </svg>
+          <p id="cmpText" style="margin:12px 0 0;color:var(--muted)"></p>
+        </div>
+      </div>
+      <div class="card rv" style="--i:2">
+        <h3>Что такое динамическое равновесие</h3>
+        <p><strong>Обратимая реакция</strong> одновременно идёт в прямом и обратном направлениях: A + B ⇄ C + D.</p>
+        <p>В начале продуктов нет, поэтому <strong>v→ велика</strong>, а <strong>v← мала</strong>. По мере накопления продуктов v→ падает (реагентов становится меньше), а v← растёт. Когда они сравниваются, наступает <strong>равновесие</strong>: сколько молекул продукта образуется за секунду, столько же и распадается.</p>
+        <p>Поэтому равновесие <strong>динамическое</strong>: реакции идут, но концентрации перестают меняться.</p>
+        <div class="callout bad"><b>Типичная ошибка:</b> «в равновесии концентрации равны». Нет! <b>Равны скорости, а не концентрации.</b> Веществ слева и справа может быть совсем разное количество.</div>
+      </div>
+    </div>
+
+    <div class="panel rv" style="margin-top:26px;--i:1">
+      <h3>Лента времени: от t = 0 до равновесия</h3>
+      <p class="cap" style="margin:-4px 0 12px">Реакция H₂(г) + I₂(г) ⇄ 2HI(г). Двигайте ползунок (или нажмите «Воспроизвести») — частицы, потоки и оба графика меняются синхронно.</p>
+      <div class="grid2" style="align-items:start">
+        <div>
+          <div id="scrubChamber"></div>
+          <div class="btnrow" style="margin-top:12px;align-items:center">
+            <button class="btn warm sm" type="button" id="tPlay">▶ Воспроизвести</button>
+            <label for="tSlider" style="font-weight:700">Время t: <output id="tOut" for="tSlider">0,0</output> усл. ед.</label>
+          </div>
+          <input class="range" type="range" id="tSlider" min="0" max="160" value="0" step="1" aria-describedby="scrubNote">
+        </div>
+        <div>
+          <h4 style="margin-bottom:4px">Концентрации</h4>
+          <div class="graph" id="scrubConc"></div>
+          <div class="gl-leg"><span><i style="border-color:#9b86ff"></i>[H₂] = [I₂]</span><span><i class="d" style="border-color:#ffb74d"></i>[HI]</span></div>
+          <h4 style="margin:14px 0 4px">Скорости</h4>
+          <div class="graph" id="scrubRate"></div>
+          <div class="gl-leg"><span><i style="border-color:#7fb4ff"></i>v→ (прямая)</span><span><i class="d" style="border-color:#ff9a76"></i>v← (обратная)</span></div>
+          <div class="numgrid" id="scrubNums" aria-live="off"></div>
+        </div>
+      </div>
+      <div class="dark-callout" id="scrubNote" role="status" style="margin-top:14px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2. LAB ================= -->
+<section id="lab" aria-labelledby="h-lab">
+  <div class="wrap">
+    <span class="sec-tag rv">Раздел 2</span>
+    <h2 id="h-lab" class="rv">Лаборатория Ле Шателье</h2>
+    <p class="lead rv"><strong>Принцип Ле Шателье:</strong> если на систему в равновесии подействовать извне, она отвечает так, чтобы ослабить это воздействие. Попробуйте на синтезе аммиака — главной реакции школьного курса.</p>
+
+    <div class="panel rv" style="margin-top:24px;--i:1">
+      <div class="eqline"><span class="eqn">N₂(г) + 3H₂(г) <span aria-hidden="true">⇄</span><span class="sr">обратимо</span> 2NH₃(г) + <span class="qchip" id="labQ">Q</span></span><span class="chip">ΔH &lt; 0 — прямая реакция экзотермическая (тепло выделяется)</span></div>
+      <div class="grid2" style="align-items:start;margin-top:12px">
+        <div>
+          <div id="labChamber"></div>
+          <div class="readout" id="labReadout" aria-label="Текущее состояние опыта"></div>
+          <div class="statusline" id="labStatus">Система в динамическом равновесии</div>
+        </div>
+        <div>
+          <h4>Воздействия</h4>
+          <div class="ctrl" id="labCtrl">
+            <button class="btn" type="button" data-act="add:N2">+ Добавить N₂</button>
+            <button class="btn" type="button" data-act="add:H2">+ Добавить H₂</button>
+            <button class="btn warm" type="button" data-act="rem:NH3">− Удалить NH₃</button>
+            <button class="btn" type="button" data-act="p:1">⤓ Повысить давление</button>
+            <button class="btn" type="button" data-act="p:-1">⤒ Понизить давление</button>
+            <button class="btn warm" type="button" data-act="t:1">🔥 Нагреть</button>
+            <button class="btn" type="button" data-act="t:-1">❄ Охладить</button>
+            <button class="btn light" type="button" data-act="cat">⚙ Добавить катализатор</button>
+            <button class="btn ghost" type="button" data-act="reset">↺ Сбросить опыт</button>
+          </div>
+          <ol class="steps" id="labSteps" aria-label="Ход рассуждения">
+            <li data-s="0"><span class="n">1</span><div><b>Вы изменили</b><span class="t">—</span></div></li>
+            <li data-s="1"><span class="n">2</span><div><b>Система стремится усилить</b><span class="t">—</span></div></li>
+            <li data-s="2"><span class="n">3</span><div><b>Переходный процесс</b><span class="t">—</span></div></li>
+            <li data-s="3"><span class="n">4</span><div><b>Итог</b><span class="t">—</span></div></li>
+          </ol>
+          <div class="result" id="labResult" aria-live="polite" aria-atomic="true">Нажмите любую кнопку воздействия — и посмотрите, как ответит система.</div>
+        </div>
+      </div>
+      <h4 style="margin:16px 0 4px">Скорости прямой и обратной реакций во времени</h4>
+      <div class="graph" id="labGraph"></div>
+      <div class="gl-leg"><span><i style="border-color:#7fb4ff"></i>v→ (прямая)</span><span><i class="d" style="border-color:#ff9a76"></i>v← (обратная)</span><span>Единица скорости: v = 1,00 — равновесие до опытов</span></div>
+      <div class="callout" style="margin-top:14px"><b>Важно:</b> после смещения реакция не идёт «только в одну сторону». Сначала одна из скоростей больше, но затем скорости снова выравниваются — на новом уровне концентраций.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3. RULES ================= -->
+<section id="rules" aria-labelledby="h-rules">
+  <div class="wrap">
+    <span class="sec-tag rv">Раздел 3</span>
+    <h2 id="h-rules" class="rv">Три фактора — три понятных правила</h2>
+    <p class="lead rv">У каждого фактора — своя логика. У каждой карточки — свой мини-опыт: нажмите кнопку и сравните «было → стало».</p>
+    <div class="grid3" style="margin-top:24px">
+
+      <article class="card rule rv" style="--i:1" id="cardConc">
+        <h3>1. Концентрация</h3>
+        <div class="rl">Добавили → расходуем. Убрали → восполняем.</div>
+        <p style="margin:0"><span class="eqn" style="color:#0d1b38">2NO₂(г) ⇄ N₂O₄(г)</span></p>
+        <div class="mini-card dark">
+          <div id="concChamber"></div>
+          <div class="btnrow">
+            <button class="btn sm" type="button" data-act="add:NO2">+ NO₂</button>
+            <button class="btn warm sm" type="button" data-act="add:N2O4">+ N₂O₄</button>
+            <button class="btn sm" type="button" data-act="rem:NO2">− NO₂</button>
+            <button class="btn warm sm" type="button" data-act="rem:N2O4">− N₂O₄</button>
+            <button class="btn ghost sm" type="button" data-act="reset">↺</button>
+          </div>
+          <div class="statusline" id="concStatus">Равновесие</div>
+        </div>
+        <div class="outbox" id="concOut" aria-live="polite">Добавьте или уберите вещество. Система «не любит» перемен и стремится вернуть концентрацию назад.</div>
+        <p style="margin:0;font-size:15px"><b>Почему:</b> если вещество добавили, ускоряется та реакция, в которой оно расходуется. Если убрали — преобладает реакция, в которой оно образуется.</p>
+      </article>
+
+      <article class="card rule rv" style="--i:2" id="cardPress">
+        <h3>2. Давление</h3>
+        <div class="rl">Считаем только моли газов. Ищем, где их меньше.</div>
+        <div class="tabs" role="tablist" aria-label="Реакция для опыта с давлением" id="pressTabs">
+          <button class="tab" role="tab" aria-selected="true" data-rx="nh3">N₂+3H₂⇄2NH₃</button>
+          <button class="tab" role="tab" aria-selected="false" data-rx="hi" tabindex="-1">H₂+I₂⇄2HI</button>
+          <button class="tab" role="tab" aria-selected="false" data-rx="co" tabindex="-1">CO₂+C(тв)⇄2CO</button>
+        </div>
+        <div class="cnt" id="pressCnt" aria-live="polite"></div>
+        <div class="mini-card dark">
+          <div id="pressChamber"></div>
+          <div class="btnrow">
+            <button class="btn sm" type="button" data-act="p:1">⤓ Давление ↑</button>
+            <button class="btn warm sm" type="button" data-act="p:-1">⤒ Давление ↓</button>
+            <button class="btn ghost sm" type="button" data-act="reset">↺</button>
+          </div>
+          <div class="statusline" id="pressStatus">Равновесие</div>
+        </div>
+        <div class="outbox" id="pressOut" aria-live="polite">Сначала посчитайте газы слева и справа, потом меняйте давление.</div>
+        <p style="margin:0;font-size:15px"><b>Почему:</b> при сжатии система «хочет» занять меньший объём — а меньше всего места требует сторона с меньшим числом молей газа. Если газовых молей поровну, сжатие всем мешает одинаково.</p>
+      </article>
+
+      <article class="card rule rv" style="--i:3" id="cardTemp">
+        <h3>3. Температура</h3>
+        <div class="rl">Нагрели → в сторону поглощения тепла (эндо). Охладили → в сторону выделения (экзо).</div>
+        <div class="tabs" role="tablist" aria-label="Реакция для опыта с температурой" id="tempTabs">
+          <button class="tab" role="tab" aria-selected="true" data-rx="no2">2NO₂ ⇄ N₂O₄</button>
+          <button class="tab" role="tab" aria-selected="false" data-rx="co" tabindex="-1">CO₂ + C(тв) ⇄ 2CO</button>
+        </div>
+        <div class="eqline" style="background:#0b1634" id="tempEq" aria-live="polite"></div>
+        <div class="mini-card dark">
+          <div id="tempChamber"></div>
+          <div class="btnrow">
+            <button class="btn warm sm" type="button" data-act="t:1">🔥 Нагреть</button>
+            <button class="btn sm" type="button" data-act="t:-1">❄ Охладить</button>
+            <button class="btn ghost sm" type="button" data-act="reset">↺</button>
+          </div>
+          <div class="statusline" id="tempStatus">Равновесие</div>
+        </div>
+        <div class="outbox" id="tempOut" aria-live="polite">Тепло Q — «участник» реакции: его можно «добавить» нагреванием или «забрать» охлаждением.</div>
+        <p style="margin:0;font-size:15px"><b>Почему:</b> нагревание — это «добавление» тепла. Система ослабляет воздействие, поглощая тепло в эндотермическом направлении. При изменении температуры меняется и константа равновесия.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4. CATALYST ================= -->
+<section id="cat" aria-labelledby="h-cat">
+  <div class="wrap">
+    <span class="sec-tag rv">Раздел 4</span>
+    <h2 id="h-cat" class="rv">Что делает катализатор</h2>
+    <p class="lead rv">Катализатор — это «ускоритель в обе стороны». Он одинаково ускоряет прямую и обратную реакции, поэтому быстрее приводит систему к равновесию, но <strong>не меняет самого положения равновесия</strong> и константы Kc.</p>
+    <div class="panel rv" style="margin-top:24px;--i:1">
+      <div class="eqline"><span class="eqn">N₂(г) + 3H₂(г) ⇄ 2NH₃(г)</span><span class="chip">две одинаковые системы, одно отличие — катализатор</span></div>
+      <div class="grid2" style="margin-top:12px;align-items:start">
+        <div><h4>Без катализатора</h4><div id="catA"></div><div class="statusline" id="catAS">t = 0</div></div>
+        <div><h4>С катализатором (Fe)</h4><div id="catB"></div><div class="statusline" id="catBS">t = 0</div></div>
+      </div>
+      <div class="btnrow" style="margin:14px 0">
+        <button class="btn warm" type="button" id="catGo">▶ Запустить оба опыта</button>
+        <button class="btn ghost" type="button" id="catReset">↺ Сначала</button>
+      </div>
+      <h4 style="margin:6px 0 4px">Доля продуктов во времени, %</h4>
+      <div class="graph" id="catChart"></div>
+      <div class="gl-leg"><span><i class="d" style="border-color:#ffb74d"></i>без катализатора</span><span><i style="border-color:#2bd4a0"></i>с катализатором</span></div>
+      <div class="numgrid" id="catNums"></div>
+      <div class="result" id="catOut" aria-live="polite">Запустите опыт: наблюдайте, кто быстрее придёт к равновесию — и где окажется итог.</div>
+      <div class="callout bad" style="margin-top:14px"><b>Ошибка:</b> «катализатор смещает равновесие вправо». На самом деле смещения нет: итоговое соотношение веществ и Kc одинаковы с катализатором и без него. Меняется только время достижения равновесия.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5. KC ================= -->
+<section id="kc" aria-labelledby="h-kc">
+  <div class="wrap">
+    <span class="sec-tag rv">Раздел 5</span>
+    <h2 id="h-kc" class="rv">Константа равновесия без страха</h2>
+    <p class="lead rv">Для обратимой реакции в газовой фазе или в растворе в состоянии равновесия отношение концентраций продуктов и реагентов (в степенях коэффициентов) постоянно при данной температуре. Это и есть <strong>константа равновесия Kc</strong>.</p>
+    <div class="grid2" style="margin-top:24px;align-items:start">
+      <div class="card rv" style="--i:1">
+        <h3>Общая формула</h3>
+        <div class="kcbox" style="background:#0f1c40" role="math" aria-label="K c равно концентрация C в степени c умножить на концентрация D в степени d, делить на концентрация A в степени a умножить на концентрация B в степени b">
+          <span>aA + bB ⇄ cC + dD</span>
+        </div>
+        <div class="kcbox" style="margin-top:10px">
+          <span>K<sub>c</sub> =</span>
+          <span class="frac"><span class="num">[C]<sup>c</sup>·[D]<sup>d</sup></span><span class="den">[A]<sup>a</sup>·[B]<sup>b</sup></span></span>
+        </div>
+        <ul style="color:var(--muted);margin:14px 0 0;padding-left:20px">
+          <li><strong>Продукты — сверху, реагенты — снизу.</strong></li>
+          <li>Показатель степени = коэффициент в уравнении.</li>
+          <li>Чистые <strong>твёрдые вещества и жидкости</strong> в выражение не входят.</li>
+          <li>Kc зависит от температуры, но <strong>не</strong> от концентраций, давления и катализатора.</li>
+          <li>Kc — не «отношение скоростей» и ничего не говорит о том, как быстро устанавливается равновесие.</li>
+        </ul>
+      </div>
+      <div class="panel rv dark" style="--i:2">
+        <h3>Соберите Kc сами</h3>
+        <p class="cap" style="margin-top:-6px">Выберите реакцию. Нажмите на вещество в уравнении — подсветится его место в Kc.</p>
+        <div class="tabs" role="tablist" aria-label="Реакция для выражения Kc" id="kcTabs">
+          <button class="tab" role="tab" aria-selected="true" data-k="nh3">N₂ + 3H₂ ⇄ 2NH₃</button>
+          <button class="tab" role="tab" aria-selected="false" data-k="so3" tabindex="-1">2SO₂ + O₂ ⇄ 2SO₃</button>
+          <button class="tab" role="tab" aria-selected="false" data-k="co" tabindex="-1">CO₂ + C(тв) ⇄ 2CO</button>
+        </div>
+        <div class="kcbox" id="kcEq" style="gap:6px"></div>
+        <div class="kcbox" id="kcExpr" style="margin-top:10px" aria-live="polite"></div>
+        <p id="kcNote" class="dark-callout" style="margin-top:12px"></p>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:20px;align-items:start">
+      <div class="panel rv" style="--i:1">
+        <h3>Что говорит величина Kc</h3>
+        <p class="cap" style="margin-top:-6px">Для простой реакции A ⇄ B при Kc = [B]/[A]. Двигайте ползунок.</p>
+        <label for="kSlider" style="font-weight:700">Kc = <output id="kOut" for="kSlider">1</output></label>
+        <input class="range" type="range" id="kSlider" min="-200" max="200" value="0" step="1" aria-describedby="kText">
+        <div class="ibar" id="kBar" aria-hidden="true" style="margin:8px 0"><i class="q" id="kQ" style="flex:1 1 50%">A</i><i class="p" id="kP" style="flex:1 1 50%">B</i></div>
+        <div class="kcases">
+          <div class="kcase" id="kc1"><b>Kc ≫ 1</b><br>преобладают продукты</div>
+          <div class="kcase" id="kc2"><b>Kc ≈ 1</b><br>заметны обе стороны</div>
+          <div class="kcase" id="kc3"><b>Kc ≪ 1</b><br>преобладают исходные вещества</div>
+        </div>
+        <p id="kText" class="dark-callout" style="margin:0"></p>
+        <p class="cap" style="margin-top:10px">Внимание: Kc говорит о положении равновесия, а не о скорости. Реакция с огромным Kc может идти очень медленно.</p>
+      </div>
+      <div class="card task rv" style="--i:2">
+        <h3>Короткая задача</h3>
+        <p>В равновесной смеси реакции 2SO₂(г) + O₂(г) ⇄ 2SO₃(г) концентрации равны: [SO₂] = 2 моль/л, [O₂] = 1 моль/л, [SO₃] = 4 моль/л. Чему равна Kc?</p>
+        <div class="opts" id="taskOpts"></div>
+        <div id="taskFb" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 6. ALGO ================= -->
+<section id="algo" aria-labelledby="h-algo">
+  <div class="wrap">
+    <span class="sec-tag rv">Раздел 6</span>
+    <h2 id="h-algo" class="rv">Алгоритм решения заданий ЕГЭ</h2>
+    <p class="lead rv">Пять шагов — и любое задание на смещение равновесия решается без угадывания. Нажмите «Разобрать пример», чтобы пройти алгоритм по шагам.</p>
+    <div class="panel rv" style="margin-top:24px;--i:1">
+      <div class="flow" id="flow">
+        <div class="node" data-n="1"><span class="nn">1</span><div><b>Выписать уравнение и агрегатные состояния</b><br>Расставьте (г), (тв), (ж); отметьте тепловой эффект ΔH.</div></div>
+        <div class="arrow" aria-hidden="true"></div>
+        <div class="node" data-n="2"><span class="nn">2</span><div><b>Определить, что изменили</b><br>Концентрацию, давление, температуру или добавили катализатор?</div></div>
+        <div class="arrow" aria-hidden="true"></div>
+        <div class="branches">
+          <div class="br" data-b="c"><b>Концентрация</b>Где вещество расходуется (добавили) или образуется (убрали)?</div>
+          <div class="br" data-b="p"><b>Давление</b>Считаем только моли газов слева и справа. (тв) и (ж) — не считаем.</div>
+          <div class="br" data-b="t"><b>Температура</b>Нагрели → эндо-направление; охладили → экзо-направление.</div>
+        </div>
+        <div class="node" data-n="3" style="margin-top:6px"><span class="nn">3</span><div><b>Применить правило нужного фактора</b><br>Выберите ветку выше и сравните стороны уравнения.</div></div>
+        <div class="arrow" aria-hidden="true"></div>
+        <div class="node" data-n="4"><span class="nn">4</span><div><b>Сформулировать направление</b><br>Вправо (→), влево (←) или не смещается.</div></div>
+        <div class="arrow" aria-hidden="true"></div>
+        <div class="node" data-n="5"><span class="nn">5</span><div><b>Проверить: не катализатор ли и не случай ли «без эффекта»?</b><br>Катализатор и равное число молей газа при смене давления равновесие не смещают.</div></div>
+      </div>
+      <div class="exwrap">
+        <h3>Разобрать пример</h3>
+        <div class="tabs" role="tablist" aria-label="Пример для разбора" id="exTabs">
+          <button class="tab" role="tab" aria-selected="true" data-ex="0">2SO₂ + O₂ ⇄ 2SO₃, p ↑</button>
+          <button class="tab" role="tab" aria-selected="false" data-ex="1" tabindex="-1">CO₂ + C(тв) ⇄ 2CO, t ↓</button>
+          <button class="tab" role="tab" aria-selected="false" data-ex="2" tabindex="-1">N₂ + 3H₂ ⇄ 2NH₃, катализатор</button>
+        </div>
+        <div class="dark-callout exstep" id="exStep" aria-live="polite"></div>
+        <div class="btnrow" style="margin-top:12px">
+          <button class="btn light sm" type="button" id="exPrev">← Назад</button>
+          <button class="btn warm sm" type="button" id="exNext">Следующий шаг →</button>
+          <button class="btn ghost sm" type="button" id="exReset">↺ Заново</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 7. QUIZ ================= -->
+<section id="quiz" aria-labelledby="h-quiz">
+  <div class="wrap">
+    <span class="sec-tag rv">Раздел 7</span>
+    <h2 id="h-quiz" class="rv">Проверь себя</h2>
+    <p class="lead rv">Девять вопросов разных типов. Правильный ответ раскрывается только после вашего выбора — вместе с объяснением.</p>
+    <div class="card rv" style="margin-top:24px;max-width:860px;--i:1" id="quizBox"></div>
+  </div>
+</section>
+
+<!-- ================= 8. SHEET ================= -->
+<section id="sheet" aria-labelledby="h-sheet">
+  <div class="wrap">
+    <span class="sec-tag rv">Раздел 8</span>
+    <h2 id="h-sheet" class="rv">Шпаргалка и антиошибки</h2>
+    <div class="grid3 sheet" style="margin-top:20px">
+      <div class="card rv" style="--i:1"><h4>Суть</h4><ul>
+        <li>Обратимая реакция идёт в обе стороны сразу.</li>
+        <li>Равновесие динамическое: v→ = v←, реакции идут.</li>
+        <li>Концентрации постоянны, но не обязательно равны.</li>
+        <li>Начало: v→ велика, v← мала. Потом они выравниваются.</li></ul></div>
+      <div class="card rv" style="--i:2"><h4>Правила смещения</h4><ul>
+        <li><b>c:</b> добавили → расходуется; убрали → образуется.</li>
+        <li><b>p:</b> ↑ → к меньшему числу молей газа; ↓ → к большему; поровну — нет смещения.</li>
+        <li><b>t:</b> ↑ → эндо; ↓ → экзо.</li>
+        <li><b>Катализатор:</b> не смещает.</li></ul></div>
+      <div class="card rv" style="--i:3"><h4>Kc</h4><ul>
+        <li>Kc = [продукты]ᶜ / [реагенты]ᵃ — степени равны коэффициентам.</li>
+        <li>(тв) и (ж) в Kc не пишем.</li>
+        <li>Kc зависит только от температуры.</li>
+        <li>Большое Kc — много продуктов, малое — мало; о скорости не говорит.</li></ul></div>
+    </div>
+    <div class="card rv" style="margin-top:18px;--i:1"><h4>Антиошибки</h4>
+      <div class="grid3" style="gap:10px">
+        <div class="callout bad">Равновесие ≠ остановка реакции.</div>
+        <div class="callout bad">Равны скорости, а не концентрации.</div>
+        <div class="callout bad">Катализатор не смещает равновесие и не меняет Kc.</div>
+        <div class="callout bad">В подсчёт давления не берём (тв) и (ж).</div>
+        <div class="callout bad">Kc — не «отношение скоростей».</div>
+        <div class="callout bad">После смещения реакция не идёт «в одну сторону»: скорости снова равны.</div>
+      </div></div>
+    <div class="anchor rv">Равновесие отвечает на воздействие — но реакция не останавливается</div>
+    <div class="tutor rv">
+      <div class="who"><div class="av" aria-hidden="true">ЕС</div><div><b style="font-size:20px">Соболева Екатерина • репетитор по химии</b><br><span style="opacity:.9">Разберём ваши задания ОГЭ/ЕГЭ и закроем пробелы в теме.</span></div></div>
+      <a class="btn warm" href="https://vk.ru/e.sob2000" target="_blank" rel="noopener noreferrer">Занятия с репетитором ↗</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><p>Химия с Екатериной Соболевой • Химическое равновесие • 9–11 класс • ОГЭ/ЕГЭ</p><p>Анимации — учебная модель, а не точная физическая симуляция.</p></div></footer>
+<button class="totop" id="toTop" type="button" aria-label="Наверх">↑</button>
+<script>
+'use strict';
+/* ===================== МОДЕЛЬ (чистая математика, без DOM) ===================== */
+const PSTEP=2, CAT=5, TAU=2.2, TMIN=-2, TMAX=2;
+const pf=l=>Math.pow(PSTEP,l);
+const ATOMS={N2:2,H2:2,NH3:4,NO2:3,N2O4:6,I2:2,HI:2,CO2:3,C:1,CO:2};
+const mkSp=a=>a.map(x=>({id:x[0],nu:x[1],gas:!!x[2]}));
+const RX={
+  nh3:{key:'nh3',sp:mkSp([['N2',-1,1],['H2',-3,1],['NH3',2,1]]),base:[6,18,0],V0:15,K0:3.7,dH:-1,tintSp:null},
+  no2:{key:'no2',sp:mkSp([['NO2',-2,1],['N2O4',1,1]]),base:[18,0],V0:15,K0:.6,dH:-1,tintSp:'NO2'},
+  hi:{key:'hi',sp:mkSp([['H2',-1,1],['I2',-1,1],['HI',2,1]]),base:[8,8,0],V0:10,K0:4,dH:-1,tintSp:null},
+  co:{key:'co',sp:mkSp([['CO2',-1,1],['C',-1,0],['CO',2,1]]),base:[12,9,0],V0:15,K0:.27,dH:1,tintSp:null}
+};
+class Sim{
+  constructor(rx){this.rx=rx;this.reset()}
+  reset(){this.base=this.rx.base.slice();this.xi=0;this.p=0;this.T=0;this.cat=false;this.t=0}
+  clone(){const s=new Sim(this.rx);s.base=this.base.slice();s.xi=this.xi;s.p=this.p;s.T=this.T;s.cat=this.cat;s.t=this.t;return s}
+  get V(){return this.rx.V0/pf(this.p)}
+  n(i,xi=this.xi){return this.base[i]+this.rx.sp[i].nu*xi}
+  c(i,xi=this.xi){return Math.max(0,this.n(i,xi))/this.V}
+  K(){return this.rx.K0*Math.pow(this.rx.dH<0?.3:3.33,this.T)}
+  kf(){return this.rx.kf*Math.pow(1.25,this.T)*(this.cat?CAT:1)}
+  rates(xi=this.xi){
+    const kf=this.kf();let f=kf,r=kf/this.K();
+    this.rx.sp.forEach((s,i)=>{if(!s.gas)return;const c=this.c(i,xi);if(s.nu<0)f*=Math.pow(c,-s.nu);else r*=Math.pow(c,s.nu)});
+    return [f,r];
+  }
+  lnQ(xi){let a=0,b=0;
+    this.rx.sp.forEach((s,i)=>{if(!s.gas)return;const c=this.c(i,xi);if(s.nu>0)a+=s.nu*Math.log(c);else b+=-s.nu*Math.log(c)});
+    return a-b;}
+  bounds(){let lo=-Infinity,hi=Infinity;
+    this.rx.sp.forEach((s,i)=>{if(s.nu>0)lo=Math.max(lo,-this.base[i]/s.nu);else hi=Math.min(hi,this.base[i]/-s.nu)});
+    return [lo,hi];}
+  eqXi(){let [lo,hi]=this.bounds();if(!(lo<=hi)){return this.xi}
+    const g=x=>this.lnQ(x)-Math.log(this.K());
+    for(let k=0;k<80;k++){const m=(lo+hi)/2;const v=g(m);if(v<0)lo=m;else hi=m}
+    return (lo+hi)/2;}
+  deriv(xi){const [f,r]=this.rates(xi);return (f-r)*this.V}
+  step(h){
+    const [lo,hi]=this.bounds();
+    const k1=this.deriv(this.xi),k2=this.deriv(this.xi+h/2*k1),k3=this.deriv(this.xi+h/2*k2),k4=this.deriv(this.xi+h*k3);
+    let x=this.xi+h/6*(k1+2*k2+2*k3+k4);
+    this.xi=Math.min(hi,Math.max(lo,x));this.t+=h;}
+  advance(dt){const n=Math.max(1,Math.ceil(dt/.005)),h=dt/n;for(let i=0;i<n;i++)this.step(h)}
+  /* целочисленное число частиц для показа — атомы сохраняются */
+  xd(xi=this.xi){const [lo,hi]=this.bounds();return Math.min(Math.floor(hi+1e-9),Math.max(Math.ceil(lo-1e-9),Math.round(xi)))}
+  counts(xi=this.xi){const xd=this.xd(xi);return this.rx.sp.map((s,i)=>Math.max(0,this.base[i]+s.nu*xd))}
+  fracR(xi=this.xi){let L=0,R=0;this.rx.sp.forEach((s,i)=>{const a=Math.max(0,this.n(i,xi))*ATOMS[s.id];if(s.nu>0)R+=a;else L+=a});return R/(L+R||1)}
+  idx(id){return this.rx.sp.findIndex(s=>s.id===id)}
+}
+/* калибровка: время релаксации базового состояния = TAU */
+Object.values(RX).forEach(rx=>{
+  rx.kf=1;const s=new Sim(rx);const xe=s.eqXi();const d=.02;
+  const lam=-(s.deriv(xe+d)-s.deriv(xe-d))/(2*d);
+  rx.kf=1/(TAU*lam);
+  s.xi=xe;rx.vref=s.rates(xe)[0];rx.xiEq=xe;
+});
+/* направление смещения: сравниваем новое равновесие с равновесием до воздействия */
+function predictDir(sim,fn){
+  const s=sim.clone();s.xi=s.eqXi();const x0=s.xi;fn(s);
+  const d=s.eqXi()-x0;
+  return Math.abs(d)<.02?'none':(d>0?'right':'left');
+}
+
+/* ===================== УТИЛИТЫ ===================== */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const NS='http://www.w3.org/2000/svg';
+const fmt=(n,d=2)=>n.toFixed(d).replace('.',',');
+const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const NAME={N2:'N₂',H2:'H₂',NH3:'NH₃',NO2:'NO₂',N2O4:'N₂O₄',I2:'I₂',HI:'HI',CO2:'CO₂',C:'C',CO:'CO'};
+const MOLS={
+  N2:[[-7,0,7.5,'#5aa9ff'],[7,0,7.5,'#5aa9ff']],
+  H2:[[-4.5,0,4.5,'#b9a6ff'],[4.5,0,4.5,'#b9a6ff']],
+  NH3:[[0,1,7.5,'#ff8a5c'],[-10,7,4.5,'#ffd27a'],[10,7,4.5,'#ffd27a'],[0,-10,4.5,'#ffd27a']],
+  NO2:[[0,-3,6.5,'#7a3209'],[-9,5,5.2,'#c0621f'],[9,5,5.2,'#c0621f']],
+  N2O4:[[-6,0,5.5,'#e8e0b0'],[6,0,5.5,'#e8e0b0'],[-13,-7,4.3,'#fff6cf'],[-13,7,4.3,'#fff6cf'],[13,-7,4.3,'#fff6cf'],[13,7,4.3,'#fff6cf']],
+  I2:[[-9,0,8.5,'#9a5bd9'],[9,0,8.5,'#9a5bd9']],
+  HI:[[-7,0,4.6,'#ffd27a'],[4,0,8,'#ff8fb0']],
+  CO2:[[0,0,6,'#8fa0c8'],[-12,0,5,'#6aa7ff'],[12,0,5,'#6aa7ff']],
+  CO:[[-5,0,6,'#8fa0c8'],[6,0,5,'#ff9a76']]
+};
+const molInner=id=>id==='C'
+  ?'<rect x="-9" y="-9" width="18" height="18" rx="3" fill="#3a4152" stroke="#aab3c9" stroke-width="1.5"/><path d="M-5,-2H5M-5,3H2" stroke="#6c778f" stroke-width="1.5"/>'
+  :MOLS[id].map(a=>`<circle cx="${a[0]}" cy="${a[1]}" r="${a[2]}" fill="${a[3]}" stroke="#0a1226" stroke-width="1.2"/>`).join('');
+const stateOf=s=>s.gas?'г':'тв';
+const spHTML=s=>`${NAME[s.id]}<span class="state">(${stateOf(s)})</span>`;
+function sideHTML(rx,side,q){
+  return rx.sp.filter(s=>(s.nu<0)===(side===0)).map(s=>{const k=Math.abs(s.nu);return (k>1?k:'')+spHTML(s)}).join(' + ');
+}
+function eqHTML(rx,withQ){
+  const l=sideHTML(rx,0),r=sideHTML(rx,1);
+  if(!withQ)return `${l} ⇄ ${r}`;
+  const q='<span class="qchip" data-q>Q</span>';
+  return rx.dH<0?`${l} ⇄ ${r} + ${q}`:`${l} + ${q} ⇄ ${r}`;
+}
+const gasMoles=(rx,side)=>rx.sp.filter(s=>s.gas&&((s.nu<0)===(side===0))).reduce((a,s)=>a+Math.abs(s.nu),0);
+const RM=window.matchMedia('(prefers-reduced-motion: reduce)');
+let reduce=RM.matches, paused=false;
+RM.addEventListener&&RM.addEventListener('change',e=>{reduce=e.matches});
+
+/* ===================== ПРЕДСТАВЛЕНИЕ КАМЕРЫ ===================== */
+let UID=0;
+const LX=[34,316], RXR=[486,766];
+class View{
+  constructor(host,rx,o={}){
+    this.rx=rx;this.o=o;const u=this.u=++UID;
+    const names=side=>rx.sp.filter(s=>(s.nu<0)===(side===0)).map(s=>NAME[s.id]).join(' + ');
+    const legend=rx.sp.map(s=>`<span><svg viewBox="-22 -16 44 32" aria-hidden="true">${molInner(s.id)}</svg>${spHTML(s)}</span>`).join('');
+    host.innerHTML=`<div class="ch-head"><div class="l">Реагенты<small>${names(0)}</small></div><div class="r">Продукты<small>${names(1)}</small></div></div>
+<div class="cv"><svg viewBox="0 0 800 400" role="img" aria-label="Реакционная камера: слева реагенты, справа продукты, между ними встречные потоки частиц и баланс, показывающий положение равновесия">
+<defs>
+<marker id="af${u}" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7fb4ff"/></marker>
+<marker id="ar${u}" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#ff9a76"/></marker>
+</defs>
+<polygon class="pivot" points="400,40 380,80 420,80"/>
+<g class="bm"><rect class="beam" x="130" y="40" width="540" height="8" rx="4"/><circle cx="130" cy="44" r="16" fill="#6aa7ff" stroke="#0a1226" stroke-width="2"/><circle cx="670" cy="44" r="16" fill="#ffb74d" stroke="#0a1226" stroke-width="2"/><circle cx="400" cy="44" r="7" fill="#0a1226"/></g>
+<rect class="res" x="24" y="100" width="300" height="230" rx="14"/>
+<rect class="res" x="476" y="100" width="300" height="230" rx="14"/>
+<rect class="gasf gL" x="26" y="210" width="296" height="118"/><rect class="gasf gR" x="478" y="210" width="296" height="118"/>
+<rect class="tintL" x="26" y="210" width="296" height="118" fill="#8a3d0c" opacity="0"/>
+<rect class="tintR" x="478" y="210" width="296" height="118" fill="#fff3c4" opacity="0"/>
+<rect class="fillL" x="26" y="300" width="296" height="0"/><rect class="fillR" x="478" y="300" width="296" height="0"/>
+<rect class="heat" x="24" y="100" width="752" height="230" rx="14" fill="#ff5a3c" opacity="0" pointer-events="none"/>
+<rect class="chan" x="324" y="150" width="152" height="130"/>
+<line class="lane f" x1="332" y1="195" x2="462" y2="195" stroke-width="3" marker-end="url(#af${u})"/>
+<line class="lane r" x1="468" y1="245" x2="338" y2="245" stroke-width="3" marker-end="url(#ar${u})"/>
+<text class="lbl" x="400" y="184" text-anchor="middle" fill="#7fb4ff">v→</text>
+<text class="lbl" x="400" y="274" text-anchor="middle" fill="#ff9a76">v←</text>
+<g class="lids"><line class="lidrod" x1="174" y1="170" x2="174" y2="200"/><line class="lidrod" x1="626" y1="170" x2="626" y2="200"/><rect class="lidr" x="150" y="160" width="48" height="10" rx="5"/><rect class="lidr" x="602" y="160" width="48" height="10" rx="5"/><rect class="lidr" x="24" y="200" width="752" height="10" rx="5"/></g>
+<g class="ml"></g><g class="mr"></g><g class="tk"></g>
+<rect class="hs" x="24" y="336" width="752" height="8" rx="4" fill="#44537a"/>
+<line class="trk" x1="40" y1="372" x2="760" y2="372"/>
+<g class="mkg" transform="translate(400 372)"><circle class="mk" r="13"/><path d="M-6,0H6M3,-3L6,0L3,3M-3,-3L-6,0L-3,3" stroke="#0a1226" stroke-width="2" fill="none"/></g>
+</svg></div>
+<div class="ch-foot"><span>← больше реагентов</span><span class="pc">доля продуктов (по атомам): 0 %</span><span>больше продуктов →</span></div>
+${o.noLegend?'':`<div class="legend" aria-label="Обозначения частиц">${legend}</div>`}`;
+    const q=s=>$(s,host);
+    this.svg=q('svg');this.bm=q('.bm');this.gL=q('.gL');this.gR=q('.gR');this.tintL=q('.tintL');this.tintR=q('.tintR');
+    this.fillL=q('.fillL');this.fillR=q('.fillR');this.heat=q('.heat');this.lids=q('.lids');
+    this.ml=q('.ml');this.mr=q('.mr');this.tk=q('.tk');this.mkg=q('.mkg');this.hs=q('.hs');this.pc=q('.pc');
+    this.laneF=q('.lane.f');this.laneR=q('.lane.r');
+    this.hasSolid=rx.sp.some(s=>!s.gas);
+    this.ms=[];this.tokens=[];this.accF=0;this.accR=0;this.counts=null;
+    this.tg={ang:0,mk:400,hg:120,tint:0,heat:0,fracR:.5,T:0,tf:0,tr:0,sf:1};
+    this.cur=Object.assign({},this.tg);this.first=true;
+    for(let i=0;i<20;i++){const p=document.createElementNS(NS,'path');p.setAttribute('d','M-7,-6L7,0L-7,6Z');p.setAttribute('stroke','#fff');p.setAttribute('stroke-width','1');p.style.display='none';this.tk.appendChild(p);this.tokens.push({el:p,on:false,t:0,dir:i<10?1:-1,y:0})}
+  }
+  yRange(){const top=330-this.cur.hg;return [top+16,this.hasSolid?292:322]}
+  makeMol(sp,side,mode){
+    const g=document.createElementNS(NS,'g');g.innerHTML=molInner(sp.id);
+    (side===0?this.ml:this.mr).appendChild(g);
+    const [y0,y1]=this.yRange(),xr=side===0?LX:RXR;
+    const m={el:g,id:sp.id,solid:!sp.gas,side,mode,t:0,s:mode==='in'?0:1,x:rnd(xr[0],xr[1]),y:rnd(y0,y1),a:rnd(0,360),w:rnd(-50,50)};
+    const sp0=rnd(14,30),ang=rnd(0,6.283);m.vx=Math.cos(ang)*sp0;m.vy=Math.sin(ang)*sp0;
+    if(mode==='in'&&!m.solid){m.x=side===0?300:500;m.y=rnd(185,250)}
+    this.ms.push(m);return m;
+  }
+  syncCounts(counts){
+    this.rx.sp.forEach((sp,i)=>{
+      const side=sp.nu<0?0:1;
+      const live=this.ms.filter(m=>m.id===sp.id&&m.mode!=='out');
+      let diff=counts[i]-live.length;
+      const mode=(reduce||this.first)?'live':'in';
+      while(diff>0){this.makeMol(sp,side,mode);diff--}
+      if(diff<0){
+        live.sort((a,b)=>side===0?b.x-a.x:a.x-b.x);
+        while(diff<0&&live.length){const m=live.shift();
+          if(reduce||this.first){m.el.remove();this.ms.splice(this.ms.indexOf(m),1)}else{m.mode='out';m.t=0}
+          diff++}
+      }
+    });
+    this.layoutSolids();
+    if(reduce)this.staticLayout();
+  }
+  layoutSolids(){
+    this.ms.filter(m=>m.solid&&m.mode!=='out').forEach((m,k)=>{m.x=44+(k%11)*25;m.y=316-Math.floor(k/11)*22;m.a=0;m.vx=m.vy=0;m.w=0});
+  }
+  staticLayout(){
+    [0,1].forEach(side=>{
+      const list=this.ms.filter(m=>m.side===side&&!m.solid&&m.mode!=='out');
+      const xr=side===0?LX:RXR,[y0,y1]=this.yRange();
+      const cols=Math.max(1,Math.floor((xr[1]-xr[0])/38)),rows=Math.max(1,Math.floor((y1-y0)/34));
+      list.forEach((m,k)=>{const c=k%cols,r=Math.floor(k/cols)%rows;m.x=xr[0]+18+c*38;m.y=y0+16+r*34;m.a=0;m.s=1;m.mode='live'});
+    });
+    this.ms.forEach(m=>this.putMol(m));
+  }
+  putMol(m){m.el.setAttribute('transform',`translate(${m.x.toFixed(1)} ${m.y.toFixed(1)}) rotate(${m.a.toFixed(0)}) scale(${m.s.toFixed(2)})`)}
+  setState(st){
+    const t=this.tg,rx=this.rx;
+    t.hg=120*Math.pow(1/pf(st.p),.4);
+    t.fracR=st.fracR;t.ang=(st.fracR-.5)*14;t.mk=40+st.fracR*720;
+    t.T=st.T;t.sf=1+.18*st.T;
+    t.tf=Math.min(8,2.6*Math.sqrt(Math.max(0,st.vf)));t.tr=Math.min(8,2.6*Math.sqrt(Math.max(0,st.vr)));
+    t.lf=st.vf;t.lr=st.vr;
+    t.tint=rx.tintSp?.1+.55*(1-st.fracR):0;
+    t.tintR=rx.tintSp?.1*st.fracR+.02:0;
+    t.heat=st.T;
+    if(!this.counts||this.counts.join()!==st.counts.join()){this.counts=st.counts.slice();this.syncCounts(st.counts)}
+    this.pc.textContent=`доля продуктов (по атомам): ${Math.round(st.fracR*100)} %`;
+    if(this.first||reduce){this.cur=Object.assign({},t);this.paint();this.first=false}
+  }
+  paint(){
+    const c=this.cur,top=330-c.hg;
+    this.bm.setAttribute('transform',`rotate(${c.ang.toFixed(2)} 400 44)`);
+    this.mkg.setAttribute('transform',`translate(${c.mk.toFixed(1)} 372)`);
+    [this.gL,this.gR,this.tintL,this.tintR].forEach(r=>{r.setAttribute('y',top.toFixed(1));r.setAttribute('height',(328-top).toFixed(1))});
+    this.lids.setAttribute('transform',`translate(0 ${(top-200).toFixed(1)})`);
+    this.tintL.setAttribute('opacity',c.tint.toFixed(2));this.tintR.setAttribute('opacity',(c.tintR||0).toFixed(2));
+    const hL=(1-c.fracR)*(328-top),hR=c.fracR*(328-top);
+    this.fillL.setAttribute('y',(328-hL).toFixed(1));this.fillL.setAttribute('height',hL.toFixed(1));
+    this.fillR.setAttribute('y',(328-hR).toFixed(1));this.fillR.setAttribute('height',hR.toFixed(1));
+    const h=c.heat;this.heat.setAttribute('fill',h>=0?'#ff5a3c':'#4aa3ff');this.heat.setAttribute('opacity',(Math.abs(h)*.07).toFixed(2));
+    this.hs.setAttribute('fill',h>0?'#ff7a5c':h<0?'#6aa7ff':'#44537a');
+    this.hs.setAttribute('opacity',(.35+Math.abs(h)*.3).toFixed(2));
+    const wf=2+Math.min(7,Math.sqrt(Math.max(0,c.lf||0))*2.2),wr=2+Math.min(7,Math.sqrt(Math.max(0,c.lr||0))*2.2);
+    this.laneF.setAttribute('stroke-width',wf.toFixed(1));this.laneR.setAttribute('stroke-width',wr.toFixed(1));
+  }
+  tick(dt){
+    if(reduce){this.cur=Object.assign({},this.tg);this.paint();return}
+    const c=this.cur,t=this.tg,k=1-Math.exp(-dt*4);
+    ['ang','mk','hg','tint','tintR','heat','fracR','lf','lr'].forEach(p=>{if(t[p]!==undefined)c[p]=(c[p]===undefined?t[p]:c[p])+(t[p]-c[p])*k});
+    this.paint();
+    const [y0,y1]=this.yRange(),sf=this.tg.sf;
+    for(let i=this.ms.length-1;i>=0;i--){
+      const m=this.ms[i];
+      if(m.mode==='out'){
+        m.t+=dt/.6;const tx=m.side===0?322:478;
+        m.x+=(tx-m.x)*Math.min(1,dt*5);m.y+=(220-m.y)*Math.min(1,dt*3);m.s=Math.max(0,1-m.t);m.a+=m.w*dt;
+        if(m.t>=1){m.el.remove();this.ms.splice(i,1);continue}
+        this.putMol(m);continue;
+      }
+      if(m.solid){if(m.mode==='in'){m.t+=dt/.6;m.s=Math.min(1,m.t)}this.putMol(m);continue}
+      if(m.mode==='in'){m.t+=dt/.7;m.s=Math.min(1,m.t);if(m.t>=1)m.mode='live'}
+      m.x+=m.vx*dt*sf;m.y+=m.vy*dt*sf;m.a+=m.w*dt;
+      const xr=m.side===0?LX:RXR;
+      if(m.x<xr[0]){m.x=xr[0];m.vx=Math.abs(m.vx)}else if(m.x>xr[1]){m.x=xr[1];m.vx=-Math.abs(m.vx)}
+      if(m.y<y0){m.y=y0;m.vy=Math.abs(m.vy)}else if(m.y>y1){m.y=y1;m.vy=-Math.abs(m.vy)}
+      this.putMol(m);
+    }
+    /* потоки */
+    this.accF+=t.tf*dt;this.accR+=t.tr*dt;
+    while(this.accF>=1){this.accF-=1;this.spawn(1)}
+    while(this.accR>=1){this.accR-=1;this.spawn(-1)}
+    for(const k2 of this.tokens){
+      if(!k2.on)continue;
+      k2.t+=dt/1.25;
+      if(k2.t>=1){k2.on=false;k2.el.style.display='none';continue}
+      const x=k2.dir>0?334+k2.t*130:466-k2.t*130;
+      const op=Math.min(1,k2.t*6,(1-k2.t)*6);
+      k2.el.setAttribute('transform',`translate(${x.toFixed(1)} ${k2.y}) scale(${k2.dir>0?1:-1} 1)`);
+      k2.el.setAttribute('opacity',op.toFixed(2));
+    }
+  }
+  spawn(dir){
+    const tk=this.tokens.find(x=>!x.on&&x.dir===dir);if(!tk)return;
+    tk.on=true;tk.t=0;tk.y=(dir>0?195:245)+rnd(-3,3).toFixed(1)*1;
+    tk.el.setAttribute('fill',dir>0?'#7fb4ff':'#ff9a76');tk.el.style.display='';
+  }
+}
+
+/* ===================== ТИКЕР ===================== */
+const anims=new Set();
+function registerAnim(a,host){
+  a.visible=false;a.host=host;anims.add(a);
+  if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{a.visible=es[0].isIntersecting},{rootMargin:'120px'});io.observe(host)}else a.visible=true;
+}
+let lastT=0;
+function loop(ts){
+  const dt=Math.min(.1,(ts-lastT)/1000||0);lastT=ts;
+  if(!paused&&!reduce){anims.forEach(a=>{if(a.visible)a.tick(dt)})}
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(t=>{lastT=t;requestAnimationFrame(loop)});
+
+/* ===================== ГРАФИК ===================== */
+class Graph{
+  constructor(host,o){
+    this.o=Object.assign({W:560,H:170,ml:38,mb:20,mt:10,mr:10,label:'График'},o);
+    const {W,H}=this.o;
+    host.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${this.o.label}"><g class="gg"></g></svg>`;
+    this.g=$('.gg',host);this.last=0;
+  }
+  update(series,{t0,t1,ymax,cursor,yfmt}){
+    const {W,H,ml,mb,mt,mr}=this.o;
+    const sx=t=>ml+(t-t0)/(t1-t0)*(W-ml-mr),sy=y=>H-mb-clamp(y/ymax,0,1.02)*(H-mb-mt);
+    let s='';
+    [0,.5,1].forEach(f=>{const y=sy(f*ymax);s+=`<line class="${f?'gl':'ax'}" x1="${ml}" x2="${W-mr}" y1="${y}" y2="${y}"/><text x="${ml-5}" y="${y+4}" text-anchor="end">${(yfmt||(v=>fmt(v,v<10?1:0)))(f*ymax)}</text>`});
+    s+=`<line class="ax" x1="${ml}" x2="${ml}" y1="${mt}" y2="${H-mb}"/>`;
+    s+=`<text x="${ml}" y="${H-5}">${Math.round(t0)}</text><text x="${W-mr}" y="${H-5}" text-anchor="end">t = ${Math.round(t1)}</text>`;
+    series.forEach(se=>{
+      if(!se.pts.length)return;
+      s+=`<path class="${se.cls}" d="${se.pts.map((p,i)=>(i?'L':'M')+sx(p[0]).toFixed(1)+' '+sy(p[1]).toFixed(1)).join('')}"/>`;
+    });
+    if(cursor!==undefined)s+=`<line class="cur" x1="${sx(cursor)}" x2="${sx(cursor)}" y1="${mt}" y2="${H-mb}"/>`;
+    this.g.innerHTML=s;
+  }
+}
+
+/* ===================== РАННЕР: модель + вид ===================== */
+class Runner{
+  constructor(host,key,o={}){this.host=host;this.o=o;this.load(key);registerAnim(this,host)}
+  load(key){
+    this.rx=RX[key];this.sim=new Sim(this.rx);this.view=new View(this.host,this.rx,this.o.view||{});
+    this.unit=this.o.unit==='v0'?this.v0():this.rx.vref;
+    this.reset(true);
+  }
+  v0(){const s=new Sim(this.rx);return s.rates(0)[0]}
+  reset(first){
+    this.sim.reset();this.hist=[];this.running=this.o.autorun!==false;this.hacc=0;this.settledFor=0;this.since=0;this.settled=false;
+    if(this.o.preSettle||(reduce&&this.o.autorun!==false&&this.o.startEq!==false)){this.sim.xi=this.sim.eqXi();}
+    if(reduce&&this.o.histOnReduce){const s2=this.sim;s2.xi=0;this.fastForward(30)}
+    if(this.sim.xi>0&&!this.running&&false){}
+    if(this.o.preSettle||(reduce&&this.o.histOnReduce)){this.settled=true;this.settledFor=1;this.since=99}
+    this.view.first=true;this.refresh();this.record(true);
+  }
+  rel(){const [f,r]=this.sim.rates();return [f/this.rx.vref,r/this.rx.vref]}
+  refresh(){
+    const s=this.sim,[f,r]=this.rel();
+    this.view.setState({counts:s.counts(),fracR:s.fracR(),p:s.p,T:s.T,vf:f,vr:r});
+  }
+  record(force){
+    const s=this.sim,[f,r]=this.rel();
+    this.hist.push([s.t,f,r,s.fracR()]);
+    if(this.hist.length>900)this.hist.splice(0,300);
+  }
+  tick(dt){
+    if(this.running){
+      this.sim.advance(dt);
+      this.hacc+=dt;if(this.hacc>=.1){this.hacc=0;this.record()}
+      this.since+=dt;
+      const [f,r]=this.sim.rates(),m=(f+r)/2||1e-9;
+      if(Math.abs(f-r)/m<.03)this.settledFor+=dt;else this.settledFor=0;
+      this.settled=this.settledFor>.5;
+    }
+    this.refresh();this.view.tick(dt);
+    this.onTick&&this.onTick(this,dt);
+  }
+  /* мгновенный просчёт переходного процесса (reduced motion) */
+  fastForward(maxT){
+    let n=0;this.running=true;
+    this.sim.xi=this.sim.xi;
+    while(n<maxT*10){this.sim.advance(.1);n++;this.record();const [f,r]=this.sim.rates();if(Math.abs(f-r)/((f+r)/2||1e-9)<.01&&n>3)break}
+    this.settledFor=1;this.settled=true;this.since=99;this.refresh();
+  }
+  jump(){
+    this.record();this.fastForward(40);this.view.tick(0);
+  }
+}
+const setBar=(el,v)=>{el.style.transform=`scaleX(${clamp(v,0,1).toFixed(3)})`};
+
+/* ===================== ВОЗДЕЙСТВИЯ И ЭКСПЕРИМЕНТЫ ===================== */
+const ADD={N2:4,H2:6,NO2:6,N2O4:3}, REM={NH3:4,NO2:6,N2O4:3};
+const DIRTXT={right:'ВПРАВО → (к продуктам)',left:'ВЛЕВО ← (к реагентам)',none:'НЕ СМЕЩАЕТСЯ ⇄'};
+const sideWord=d=>d==='right'?'продуктов':'реагентов';
+function actDef(act,sim){
+  const rx=sim.rx,[k,arg]=act.split(':'),nm=id=>NAME[id];
+  if(k==='add'){
+    const i=sim.idx(arg),amt=ADD[arg],react=rx.sp[i].nu<0;
+    if(sim.counts()[i]+amt>30)return {limit:`Камера заполнена: ${nm(arg)} добавить нельзя. Нажмите «Сбросить».`};
+    return {apply:s=>{s.base[i]+=amt},did:`Добавили ${nm(arg)} (+${amt} частиц)`,
+      want:`реакцию, в которой ${nm(arg)} расходуется — ${react?'прямую (→)':'обратную (←)'}`,
+      explain:d=>`Концентрация ${nm(arg)} выросла. Система «тратит» избыток: ${react?'прямая':'обратная'} реакция на время опережает другую. Равновесие смещается ${d==='right'?'вправо':'влево'} — ${sideWord(d)} становится больше.`};
+  }
+  if(k==='rem'){
+    const i=sim.idx(arg),amt=REM[arg],react=rx.sp[i].nu<0;
+    if(Math.floor(sim.n(i)+1e-9)<1)return {limit:`${nm(arg)} в камере почти нет — убирать нечего.`};
+    return {apply:s=>{s.base[i]-=Math.min(amt,Math.max(0,Math.floor(s.n(i)+1e-9)))},did:`Убрали ${nm(arg)} (до −${amt} частиц)`,
+      want:`реакцию, в которой ${nm(arg)} образуется — ${react?'обратную (←)':'прямую (→)'}`,
+      explain:d=>`Концентрация ${nm(arg)} упала. Система «восполняет» потерю: преобладает реакция, в которой ${nm(arg)} образуется. Равновесие смещается ${d==='right'?'вправо':'влево'}.`};
+  }
+  if(k==='p'){
+    const d=+arg,Gl=gasMoles(rx,0),Gr=gasMoles(rx,1),up=d>0;
+    if(sim.p+d>TMAX||sim.p+d<TMIN)return {limit:up?'Достигнуто максимальное сжатие в этом опыте. Нажмите «Сбросить».':'Достигнуто максимальное расширение в этом опыте. Нажмите «Сбросить».'};
+    const solid=rx.sp.some(s=>!s.gas)?` Твёрдое вещество ${rx.sp.filter(s=>!s.gas).map(s=>NAME[s.id]+'(тв)').join(', ')} в подсчёт не входит.`:'';
+    return {apply:s=>{s.p+=d},did:up?'Повысили давление (камера сжалась)':'Понизили давление (камера расширилась)',
+      want:Gl===Gr?`газовых молей поровну (слева ${Gl}, справа ${Gr}) — выигрышной стороны нет`:`сторону с ${up?'меньшим':'большим'} числом молей газа: слева ${Gl}, справа ${Gr}`,
+      explain:dir=>dir==='none'
+        ?`Газовых молей поровну (${Gl} и ${Gr}), поэтому сжатие или расширение одинаково влияет на обе реакции: обе скорости меняются в одинаковой степени и остаются равными.${solid}`
+        :`Слева ${Gl} моль газа, справа ${Gr}. ${up?'При повышении давления':'При понижении давления'} равновесие смещается к стороне с ${up?'меньшим':'большим'} числом молей газа — ${dir==='right'?'вправо':'влево'}.${solid}`};
+  }
+  if(k==='t'){
+    const d=+arg,up=d>0;
+    if(sim.T+d>TMAX||sim.T+d<TMIN)return {limit:up?'Достигнут предел нагрева в этом опыте. Нажмите «Сбросить».':'Достигнут предел охлаждения в этом опыте. Нажмите «Сбросить».'};
+    const endoDir=rx.dH<0?'left':'right',exoDir=rx.dH<0?'right':'left',tgt=up?endoDir:exoDir;
+    const arr=x=>x==='right'?'прямую (→)':'обратную (←)';
+    return {apply:s=>{s.T+=d},did:up?'Нагрели систему':'Охладили систему',
+      want:up?`эндотермическое направление (оно поглощает тепло) — ${arr(endoDir)}`:`экзотермическое направление (оно выделяет тепло) — ${arr(exoDir)}`,
+      explain:dir=>`${up?'Нагревание — это «добавление» тепла Q. Система поглощает его, усиливая эндотермическую реакцию':'Охлаждение — это «отнятие» тепла Q. Система восполняет его, усиливая экзотермическую реакцию'} — ${arr(tgt)}. Равновесие смещается ${dir==='right'?'вправо':'влево'}. Константа равновесия при этом ${(rx.dH<0)===up?'уменьшается':'растёт'} — температура меняет Kc.`};
+  }
+  if(k==='cat'){
+    if(sim.cat)return {limit:'Катализатор уже добавлен. Он не влияет на положение равновесия — нажмите «Сбросить», чтобы начать заново.'};
+    return {apply:s=>{s.cat=true},did:'Добавили катализатор',want:'ничего: катализатор не создаёт перекоса между реакциями',
+      explain:()=>`Катализатор одинаково ускорил прямую и обратную реакции (обе скорости выросли в ~${CAT} раз), поэтому они остались равны. Положение равновесия и Kc не изменились — прежнее равновесие просто устанавливается быстрее.`};
+  }
+  return {limit:'Неизвестное действие'};
+}
+class Experiment{
+  constructor(o){
+    Object.assign(this,o);this.id=0;this.pending=null;this.timers=[];this.acc=0;this.cache={};
+    this.root.addEventListener('click',e=>{const b=e.target.closest('[data-act]');if(b&&this.root.contains(b))this.handle(b.dataset.act)});
+    this.runner.onTick=(r,dt)=>this.tickUI(dt);
+    this.clear();this.tickUI(1);
+  }
+  say(t){if(this.out)this.out.textContent=t}
+  setStep(i,txt,state){
+    if(!this.steps)return;const li=this.steps.children[i];
+    if(txt!==undefined)$('.t',li).textContent=txt;
+    li.classList.remove('act','done');if(state)li.classList.add(state);
+  }
+  clear(){
+    this.timers.forEach(clearTimeout);this.timers=[];this.pending=null;this.id++;
+    if(this.steps)for(let i=0;i<4;i++)this.setStep(i,'—','');
+    if(this.out&&this.outIdle)this.out.innerHTML=this.outIdle;
+  }
+  handle(act){
+    const r=this.runner,sim=r.sim;
+    if(act==='reset'){r.reset();if(this.afterLoad)this.afterLoad();this.clear();this.tickUI(1);return}
+    const d=actDef(act,sim);
+    if(d.limit){this.say(d.limit);return}
+    this.timers.forEach(clearTimeout);this.timers=[];
+    const dir=predictDir(sim,d.apply),before=sim.counts(sim.eqXi()),id=++this.id;
+    d.apply(sim);
+    r.settled=false;r.settledFor=0;r.since=0;r.running=true;
+    this.pending={id,dir,d,before};
+    this.setStep(0,d.did,'done');this.setStep(1,'…','act');this.setStep(2,'—','');this.setStep(3,'—','');
+    const after=(ms,fn)=>{if(reduce)fn();else this.timers.push(setTimeout(()=>{if(this.id===id)fn()},ms))};
+    after(650,()=>{this.setStep(1,`усилить ${d.want}`,'done');this.setStep(2,'Частицы и баланс перераспределяются, скорости v→ и v← сначала различаются…','act')});
+    if(reduce){r.jump();this.finalize()}
+    else{this.out.innerHTML='<span class="cap">Идёт переходный процесс…'+(paused?' Анимация на паузе — нажмите «Продолжить анимацию».':'')+'</span>'}
+    this.tickUI(1);
+  }
+  finalize(){
+    const p=this.pending;if(!p)return;this.pending=null;
+    const r=this.runner,rx=r.sim.rx,after=r.sim.counts();
+    const comp=rx.sp.map((s,i)=>`${NAME[s.id]} ${p.before[i]}→${after[i]}`).join(' · ');
+    this.setStep(1,`усилить ${p.d.want}`,'done');
+    this.setStep(2,'Скорости v→ и v← снова сравнялись — новое динамическое равновесие',  'done');
+    this.setStep(3,DIRTXT[p.dir],'done');
+    const keep=p.dir==='none'?'Обе реакции идут, как и прежде.':'Обе реакции продолжают идти — просто на новом уровне концентраций.';
+    this.out.innerHTML=`<span class="verdict ${p.dir}">${DIRTXT[p.dir]}</span><br>${p.d.explain(p.dir)} ${keep}<br><span class="cap">Число частиц «до воздействия → в новом равновесии»: ${comp}</span>`;
+  }
+  tickUI(dt){
+    this.acc+=dt;if(this.acc<.12)return;this.acc=0;
+    const r=this.runner,s=r.sim,[f,g]=r.rel();
+    if(this.pending&&!reduce&&r.since>1.5&&r.settled)this.finalize();
+    const tr=!!this.pending||!r.settled;
+    const txt=tr?`Переходный процесс: v→ = ${fmt(f)} ≠ v← = ${fmt(g)}`:`Динамическое равновесие: v→ = v← = ${fmt(f)} — реакции идут`;
+    if(this.status&&this.cache.st!==txt){this.cache.st=txt;this.status.textContent=txt;this.status.className='statusline '+(tr?'tr':'eq')}
+    if(this.readout){
+      const cn=s.counts(),h=`${s.rx.sp.map((sp,i)=>`<span class="chip">${NAME[sp.id]}: ${cn[i]}</span>`).join('')}<span class="chip">Давление: ×${fmt(pf(s.p))}</span><span class="chip ${s.T>0?'hot':s.T<0?'cold':''}">Температура: ${s.T>0?'нагрето +'+s.T:s.T<0?'охлаждено '+s.T:'исходная'}</span><span class="chip">Катализатор: ${s.cat?'есть':'нет'}</span><span class="chip">Kc = ${fmt(s.K())}</span>`;
+      if(this.cache.ro!==h){this.cache.ro=h;this.readout.innerHTML=h}
+    }
+    if(this.qchips)this.qchips.forEach(q=>q.classList.toggle('on',s.T>0));
+    if(this.graph){
+      const h=r.hist,t1=Math.max(24,s.t),t0=t1-24,pts=h.filter(p=>p[0]>=t0);
+      const vmax=Math.max(1.2,...pts.map(p=>Math.max(p[1],p[2])))*1.1;
+      this.gmax=this.gmax?this.gmax+(vmax-this.gmax)*.3:vmax;
+      this.graph.update([{cls:'lf',pts:pts.map(p=>[p[0],p[1]])},{cls:'lr',pts:pts.map(p=>[p[0],p[2]])}],{t0,t1,ymax:this.gmax});
+    }
+    this.extra&&this.extra(r);
+  }
+}
+
+/* ===================== HERO ===================== */
+const hero=new Runner($('#heroChamber'),'nh3',{unit:'v0',histOnReduce:true});
+const heroG=new Graph($('#heroGraph'),{label:'Графики скоростей прямой и обратной реакций: они сходятся к одному уровню'});
+{
+  const kk=()=>hero.rx.vref/hero.v0();let acc=0,cs='';
+  const upd=(r,dt)=>{
+    acc+=dt;if(acc<.1&&dt<1)return;acc=0;
+    const [f,g]=hero.rel(),k=kk(),s=hero.sim;
+    $('#heroVf').textContent=fmt(f*k);$('#heroVr').textContent=fmt(g*k);
+    setBar($('#heroVfB'),f*k);setBar($('#heroVrB'),g*k);
+    const st=s.t<.4&&!reduce?'init':hero.settled?'eq':'tr';
+    if(cs!==st+(reduce?'r':'')){cs=st+(reduce?'r':'');const el=$('#heroStatus');
+      el.className='statusline '+(st==='eq'?'eq':st==='tr'?'tr':'');
+      el.textContent=st==='eq'?'Динамическое равновесие: v→ = v← > 0 — реакции идут, концентрации постоянны':st==='tr'?'Идёт установление равновесия: v→ уменьшается, v← растёт':'t = 0: продуктов ещё нет, v← ≈ 0, а v→ максимальна'}
+    const t1=Math.max(16,s.t),pts=hero.hist;
+    heroG.update([{cls:'lf',pts:pts.map(p=>[p[0],p[1]*k])},{cls:'lr',pts:pts.map(p=>[p[0],p[2]*k])}],{t0:t1-16,t1,ymax:1.05,yfmt:v=>fmt(v,1)});
+  };
+  hero.onTick=upd;upd(hero,1);
+  $('#heroRestart').addEventListener('click',()=>{hero.reset();cs='';upd(hero,1)});
+  $('#ctaStart').addEventListener('click',()=>{if(!reduce&&hero.sim.t>20){hero.reset();cs=''}});
+}
+
+/* ===================== СРАВНЕНИЕ: необратимая / обратимая ===================== */
+const CMP=[
+  {t:'Необратимая: 2Mg + O₂ → 2MgO. Исходные вещества расходуются практически полностью, продукты обратно не превращаются. Кривая исходных веществ идёт к нулю, продукта — к максимуму. Равновесия нет.',la:'исходные вещества',lb:'продукт',eq:0},
+  {t:'Обратимая: N₂ + 3H₂ ⇄ 2NH₃. Продукт сам распадается обратно, поэтому кривые выходят на горизонтальные «полки»: исходные вещества не заканчиваются, продукта не 100 %. Это и есть равновесие — при этом реакции идут в обе стороны.',la:'исходные вещества',lb:'продукт',eq:.38}
+];
+function cmpShow(i){
+  const c=CMP[i],pa=[],pb=[];
+  for(let k=0;k<=60;k++){const t=k/60*5,e=Math.exp(-t/1.1),a=c.eq+(1-c.eq)*e,x=40+k/60*345;
+    pa.push((k?'L':'M')+x.toFixed(1)+' '+(180-150*a).toFixed(1));pb.push((k?'L':'M')+x.toFixed(1)+' '+(180-150*(1-a)).toFixed(1))}
+  $('#cmpA').setAttribute('d',pa.join(''));$('#cmpB').setAttribute('d',pb.join(''));
+  $('#cmpText').textContent=c.t;
+  [['#cmpLa',c.eq],['#cmpLb',1-c.eq]].forEach(([s,a])=>{const e=$(s);e.setAttribute('x',385);e.setAttribute('text-anchor','end');e.setAttribute('y',(180-150*a-8).toFixed(0))});
+  const r=$('#cmpClipR');
+  if(reduce){r.style.transition='none';r.style.transform='scaleX(1)'}
+  else{r.style.transition='none';r.style.transform='scaleX(0)';void r.getBoundingClientRect();r.style.transition='transform 1.4s ease-out';r.style.transform='scaleX(1)'}
+}
+function tablist(el,onSel){
+  const tabs=$$('[role=tab]',el);
+  const sel=t=>{tabs.forEach(x=>{const on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1});onSel(t)};
+  tabs.forEach((t,i)=>{
+    t.addEventListener('click',()=>sel(t));
+    t.addEventListener('keydown',e=>{
+      let j=-1;if(e.key==='ArrowRight')j=(i+1)%tabs.length;else if(e.key==='ArrowLeft')j=(i-1+tabs.length)%tabs.length;else if(e.key==='Home')j=0;else if(e.key==='End')j=tabs.length-1;
+      if(j>=0){e.preventDefault();tabs[j].focus();sel(tabs[j])}});
+  });
+}
+tablist($('[role=tablist]',$('#dyn')),t=>{cmpShow(+t.dataset.cmp);$('#cmpPanel').setAttribute('aria-labelledby',t.id)});
+cmpShow(0);
+
+/* ===================== ЛЕНТА ВРЕМЕНИ ===================== */
+{
+  const rx=RX.hi,s0=new Sim(rx),v0=s0.rates(0)[0],TR=[];
+  const sm=new Sim(rx);
+  for(let i=0;i<=160;i++){const [f,g]=sm.rates();TR.push({xi:sm.xi,f:f/v0,r:g/v0,cH:sm.c(0),cHI:sm.c(2)});sm.advance(.1)}
+  const view=new View($('#scrubChamber'),rx,{}),gc=new Graph($('#scrubConc'),{label:'Концентрации веществ во времени'}),gr=new Graph($('#scrubRate'),{label:'Скорости прямой и обратной реакций во времени'});
+  const sl=$('#tSlider'),vs=new Sim(rx);let playing=false,pos=0;
+  const sc={tick(dt){
+    if(playing){pos+=dt*10;if(pos>=160){pos=160;playing=false;$('#tPlay').textContent='▶ Воспроизвести'}sl.value=Math.round(pos);draw(Math.round(pos),true)}
+    view.tick(dt)}};
+  registerAnim(sc,$('#scrubChamber'));
+  function draw(i){
+    const p=TR[i];vs.xi=p.xi;
+    view.setState({counts:vs.counts(),fracR:vs.fracR(),p:0,T:0,vf:p.f*v0/rx.vref,vr:p.r*v0/rx.vref});
+    $('#tOut').textContent=fmt(i/10,1);
+    const pts=k=>TR.slice(0,i+1).map((q,j)=>[j/10,q[k]]);
+    const opt={t0:0,t1:16,cursor:i/10};
+    gc.update([{cls:'lc1',pts:pts('cH')},{cls:'lc2',pts:pts('cHI')}],Object.assign({ymax:1},opt));
+    gr.update([{cls:'lf',pts:pts('f')},{cls:'lr',pts:pts('r')}],Object.assign({ymax:1.05},opt));
+    $('#scrubNums').innerHTML=`<div>[H₂] = [I₂]<b>${fmt(p.cH)}</b></div><div>[HI]<b>${fmt(p.cHI)}</b></div><div>v→<b>${fmt(p.f)}</b></div><div>v←<b>${fmt(p.r)}</b></div>`;
+    const eq=Math.abs(p.f-p.r)/((p.f+p.r)/2||1)<.03&&i>0;
+    $('#scrubNote').innerHTML=i===0?'<b>t = 0.</b> Продуктов нет, поэтому v← = 0, а v→ максимальна. Двигайте ползунок вправо.'
+      :eq?`<b>Равновесие.</b> v→ = v← = ${fmt(p.f)} — реакции идут в обе стороны с равной скоростью. Но [H₂] = ${fmt(p.cH)}, а [HI] = ${fmt(p.cHI)}: <b>равны скорости, а не концентрации.</b>`
+      :`<b>Идёт установление равновесия.</b> v→ уменьшается (реагентов всё меньше), v← растёт (продукта всё больше). Скорости пока различаются: v→ = ${fmt(p.f)}, v← = ${fmt(p.r)}.`;
+  }
+  sl.addEventListener('input',()=>{pos=+sl.value;playing=false;$('#tPlay').textContent='▶ Воспроизвести';draw(pos)});
+  $('#tPlay').addEventListener('click',()=>{
+    if(reduce){pos=160;sl.value=160;draw(160);return}
+    if(playing){playing=false;$('#tPlay').textContent='▶ Воспроизвести';return}
+    if(pos>=160)pos=0;playing=true;$('#tPlay').textContent='⏸ Пауза';
+  });
+  draw(0);
+}
+
+/* ===================== ЛАБОРАТОРИЯ ===================== */
+const labR=new Runner($('#labChamber'),'nh3',{preSettle:true});
+const lab=new Experiment({runner:labR,root:$('#labCtrl'),steps:$('#labSteps'),out:$('#labResult'),status:$('#labStatus'),readout:$('#labReadout'),
+  graph:new Graph($('#labGraph'),{label:'Скорости прямой и обратной реакций во времени'}),qchips:$$('#labQ'),
+  outIdle:'Нажмите любую кнопку воздействия — и посмотрите, как ответит система.'});
+
+/* ===================== ТРИ ФАКТОРА ===================== */
+const concR=new Runner($('#concChamber'),'no2',{preSettle:true});
+const conc=new Experiment({runner:concR,root:$('#cardConc'),out:$('#concOut'),status:$('#concStatus'),outIdle:'Добавьте или уберите вещество. Система «не любит» перемен и стремится вернуть концентрацию назад.'});
+
+const pressR=new Runner($('#pressChamber'),'nh3',{preSettle:true});
+function pressCnt(){
+  const rx=pressR.rx,Gl=gasMoles(rx,0),Gr=gasMoles(rx,1);
+  const part=side=>rx.sp.filter(s=>(s.nu<0)===(side===0)).map(s=>s.gas?`${NAME[s.id]}: ${Math.abs(s.nu)}`:`<s>${NAME[s.id]}(тв)</s>`).join(' + ');
+  const sign=Gl>Gr?'&gt;':Gl<Gr?'&lt;':'=';
+  $('#pressCnt').innerHTML=`<span class="side">слева: ${part(0)} = <b>${Gl}</b></span><span class="gt" aria-label="${Gl>Gr?'больше':Gl<Gr?'меньше':'равно'}">${sign}</span><span class="side">справа: ${part(1)} = <b>${Gr}</b></span>`;
+}
+const press=new Experiment({runner:pressR,root:$('#cardPress'),out:$('#pressOut'),status:$('#pressStatus'),outIdle:'Сначала посчитайте газы слева и справа, потом меняйте давление.',afterLoad:pressCnt});
+pressCnt();
+tablist($('#pressTabs'),t=>{pressR.load(t.dataset.rx);pressCnt();press.clear();press.tickUI(1)});
+
+const tempR=new Runner($('#tempChamber'),'no2',{preSettle:true});
+function tempEq(){$('#tempEq').innerHTML=`<span class="eqn">${eqHTML(tempR.rx,true)}</span><span class="chip">ΔH ${tempR.rx.dH<0?'< 0 (экзо →)':'> 0 (эндо →)'}</span>`;temp.qchips=$$('[data-q]',$('#tempEq'))}
+const temp=new Experiment({runner:tempR,root:$('#cardTemp'),out:$('#tempOut'),status:$('#tempStatus'),outIdle:'Тепло Q — «участник» реакции: его можно «добавить» нагреванием или «забрать» охлаждением.',afterLoad:()=>{}});
+tempEq();
+tablist($('#tempTabs'),t=>{tempR.load(t.dataset.rx);tempEq();temp.clear();temp.tickUI(1)});
+
+/* ===================== КАТАЛИЗАТОР ===================== */
+{
+  const A=new Runner($('#catA'),'nh3',{autorun:false}),B=new Runner($('#catB'),'nh3',{autorun:false});
+  const gch=new Graph($('#catChart'),{label:'Доля продуктов во времени с катализатором и без него'});
+  const setup=()=>{A.reset();B.reset();B.sim.cat=true;B.refresh();A.running=B.running=false;A.record();B.record()};
+  const fin=r=>r.sim.fracR(r.rx.xiEq);
+  const teq=r=>{const f=r.sim.fracR(),h=r.hist.find(p=>Math.abs(p[3]-f)<.015&&p[0]>0);return h?h[0]:r.sim.t};
+  let acc=0,done=false;
+  function upd(dt){
+    acc+=dt;if(acc<.1&&dt<1)return;acc=0;
+    const pa=A.hist.map(p=>[p[0],p[3]*100]),pb=B.hist.map(p=>[p[0],p[3]*100]);
+    gch.update([{cls:'lc2',pts:pa},{cls:'lk',pts:pb}],{t0:0,t1:12,ymax:100,yfmt:v=>Math.round(v)});
+    const q=r=>Math.exp(r.sim.lnQ(r.sim.xi)),K=A.sim.K();
+    const st=r=>`t = ${fmt(r.sim.t,1)} · продуктов ${Math.round(r.sim.fracR()*100)} % · ${r.settled?'v→ = v← (равновесие)':r.running?'идёт реакция':'ожидание'}`;
+    $('#catAS').textContent=st(A);$('#catBS').textContent=st(B);
+    $('#catAS').className='statusline '+(A.settled?'eq':A.running?'tr':'');$('#catBS').className='statusline '+(B.settled?'eq':B.running?'tr':'');
+    $('#catNums').innerHTML=`<div>Q сейчас (без)<b>${A.sim.t?fmt(q(A)):'0,00'}</b></div><div>Q сейчас (с кат.)<b>${B.sim.t?fmt(q(B)):'0,00'}</b></div><div>Kc (без)<b>${fmt(K)}</b></div><div>Kc (с кат.)<b>${fmt(B.sim.K())}</b></div>`;
+    if(A.settled&&B.settled&&!done){
+      done=true;const ta=teq(A),tb=teq(B);
+      $('#catOut').innerHTML=`<b>Итог:</b> без катализатора равновесие установилось к t ≈ ${fmt(ta,1)}, с катализатором — к t ≈ ${fmt(tb,1)} (примерно в ${fmt(ta/Math.max(tb,.1),1)} раза быстрее). Но итоговое соотношение веществ одинаково: продуктов ${Math.round(fin(A)*100)} % в обоих опытах, Kc = ${fmt(K)} в обоих. <b>Катализатор не сместил равновесие.</b>`;
+    }
+  }
+  A.onTick=(r,dt)=>upd(dt);B.onTick=()=>{};
+  $('#catGo').addEventListener('click',()=>{
+    setup();done=false;$('#catOut').textContent='Опыт идёт… смотрите, кто быстрее достигнет равновесия.';
+    if(reduce){A.fastForward(60);B.fastForward(60);A.view.tick(0);B.view.tick(0);upd(1);return}
+    A.running=B.running=true;
+  });
+  $('#catReset').addEventListener('click',()=>{setup();done=false;$('#catOut').textContent='Запустите опыт: наблюдайте, кто быстрее придёт к равновесию — и где окажется итог.';upd(1)});
+  setup();upd(1);
+}
+
+/* ===================== Kc ===================== */
+Object.assign(NAME,{SO2:'SO₂',O2:'O₂',SO3:'SO₃'});
+const KC={
+  nh3:{L:[[1,'N2',1],[3,'H2',1]],R:[[2,'NH3',1]],note:'Коэффициент 3 перед H₂ превращается в степень 3 у [H₂], коэффициент 2 перед NH₃ — в степень 2 у [NH₃]. Все вещества — газы, значит, все входят в Kc.'},
+  so3:{L:[[2,'SO2',1],[1,'O2',1]],R:[[2,'SO3',1]],note:'Коэффициент 2 перед SO₂ даёт [SO₂]², а коэффициент 1 у O₂ степень не пишем. Все вещества — газы, все входят в Kc.'},
+  co:{L:[[1,'CO2',1],[1,'C',0]],R:[[2,'CO',1]],note:'Углерод C(тв) — чистое твёрдое вещество, его «концентрация» постоянна и включена в константу, поэтому в выражение Kc он не входит. Только газы: [CO]² сверху и [CO₂] снизу.'}
+};
+const sup=n=>n>1?`<sup>${n}</sup>`:'';
+let kcKey='nh3';
+function kcRender(key){
+  kcKey=key;const k=KC[key];let d=0;
+  const eqT=a=>a.map(([c,id,g])=>`${c>1?c:''}<button type="button" class="sp popin" style="--d:${d++}" data-sp="${id}">${NAME[id]}</button><span class="state">(${g?'г':'тв'})</span>`).join(' + ');
+  $('#kcEq').innerHTML=`${eqT(k.L)} <span aria-label="обратимо">⇄</span> ${eqT(k.R)}`;
+  const term=a=>a.filter(x=>x[2]).map(([c,id])=>`<span class="term popin" style="--d:${d++}" data-sp="${id}">[${NAME[id]}]${sup(c)}</span>`).join('·');
+  $('#kcExpr').innerHTML=`<span>K<sub>c</sub> =</span><span class="frac"><span class="num">${term(k.R)}</span><span class="den">${term(k.L)}</span></span>`;
+  $('#kcNote').textContent=k.note;
+}
+$('#kcEq').addEventListener('click',e=>{
+  const b=e.target.closest('.sp');if(!b)return;
+  const id=b.dataset.sp,k=KC[kcKey],all=[...k.L,...k.R],it=all.find(x=>x[1]===id);
+  $$('.term,.sp',$('#kc')).forEach(x=>x.classList.toggle('hl',x.dataset.sp===id));
+  $('#kcNote').textContent=it[2]?`${NAME[id]}: коэффициент ${it[0]} → в Kc записываем [${NAME[id]}]${it[0]>1?' в степени '+it[0]:' (степень 1)'}, ${k.R.includes(it)?'в числителе (продукт)':'в знаменателе (реагент)'}.`
+    :`${NAME[id]}(тв) — твёрдое вещество, в выражение Kc не входит.`;
+});
+tablist($('#kcTabs'),t=>kcRender(t.dataset.k));kcRender('nh3');
+
+/* Что говорит величина Kc */
+{
+  const sl=$('#kSlider');
+  const upd=()=>{
+    const K=Math.pow(10,sl.value/100),sh=K/(1+K);
+    $('#kOut').textContent=K>=10?fmt(K,0):K>=1?fmt(K,1):fmt(K,K<.1?3:2);
+    $('#kQ').style.flexBasis=((1-sh)*100).toFixed(1)+'%';$('#kP').style.flexBasis=(sh*100).toFixed(1)+'%';
+    $('#kQ').textContent=sh>.93?'':'A';$('#kP').textContent=sh<.07?'':'B';
+    const c=K>=10?1:K<=.1?3:2;[1,2,3].forEach(n=>$('#kc'+n).classList.toggle('on',n===c));
+    $('#kText').textContent=`При Kc = ${$('#kOut').textContent} в равновесии примерно ${Math.round(sh*100)} % вещества находится в виде B (продукта) и ${Math.round((1-sh)*100)} % — в виде A. ${c===1?'Продукты преобладают.':c===3?'Преобладают исходные вещества.':'Заметны обе стороны.'}`;
+  };
+  sl.addEventListener('input',upd);upd();
+}
+/* Задача */
+{
+  const opts=[['4',true,'Верно! Kc = [SO₃]² / ([SO₂]²·[O₂]) = 4² / (2²·1) = 16 / 4 = 4 (размерность л/моль в школьных задачах обычно не указывают).'],
+    ['2',false,'Похоже, вы забыли степени. Каждая концентрация возводится в степень, равную коэффициенту: [SO₃]², [SO₂]².'],
+    ['0,25',false,'Дробь перевёрнута: продукты (SO₃) должны быть в числителе, а реагенты — в знаменателе.'],
+    ['16',false,'Вы не возвели [SO₂] в квадрат: в знаменателе должно быть 2²·1 = 4, а не 1.']];
+  const box=$('#taskOpts'),fb=$('#taskFb');
+  [2,0,3,1].forEach(i=>{const b=document.createElement('button');b.type='button';b.className='btn light';b.textContent='Kc = '+opts[i][0];
+    b.addEventListener('click',()=>{
+      $$('button',box).forEach(x=>x.disabled=true);
+      b.style.outline=opts[i][1]?'3px solid #0b7a5a':'3px solid #a8201f';
+      fb.innerHTML=`<div class="fb ${opts[i][1]?'ok':'no'}"><b>${opts[i][1]?'✓ Верно.':'✗ Неверно.'}</b> ${opts[i][2]}</div><button class="btn ghost sm" style="margin-top:10px;color:#16306a;border-color:#16306a" type="button" id="taskAgain">↺ Ещё раз</button>`;
+      $('#taskAgain').addEventListener('click',()=>{fb.innerHTML='';$$('button',box).forEach(x=>{x.disabled=false;x.style.outline=''})});
+    });box.appendChild(b)});
+}
+
+/* ===================== АЛГОРИТМ ===================== */
+const EX=[
+  {steps:[
+    {n:1,t:'Уравнение: 2SO₂(г) + O₂(г) ⇄ 2SO₃(г), ΔH < 0. Все вещества — газы.'},
+    {n:2,t:'Что изменили? Повысили давление.'},
+    {n:3,b:'p',t:'Ветка «давление»: считаем только моли газов. Слева 2 + 1 = 3 моль, справа 2 моль.'},
+    {n:4,t:'При повышении давления равновесие смещается к меньшему числу молей газа (3 → 2), то есть вправо.'},
+    {n:5,t:'Проверка: это не катализатор, и число газовых молей разное — эффект есть. Ответ: вправо (→), в сторону SO₃.'}]},
+  {steps:[
+    {n:1,t:'Уравнение: CO₂(г) + C(тв) ⇄ 2CO(г), ΔH > 0. Прямая реакция эндотермическая, обратная — экзотермическая.'},
+    {n:2,t:'Что изменили? Охладили систему.'},
+    {n:3,b:'t',t:'Ветка «температура»: при охлаждении выигрывает экзотермическое направление. Экзотермическая здесь — обратная реакция (←).'},
+    {n:4,t:'Равновесие смещается влево (←), в сторону CO₂. Kc при этом уменьшается.'},
+    {n:5,t:'Проверка: это не катализатор. Температура всегда смещает равновесие (если ΔH ≠ 0) — эффект есть. Ответ: влево.'}]},
+  {steps:[
+    {n:1,t:'Уравнение: N₂(г) + 3H₂(г) ⇄ 2NH₃(г), ΔH < 0.'},
+    {n:2,t:'Что изменили? Добавили катализатор (железо).'},
+    {n:3,t:'Катализатор — не концентрация, не давление и не температура. Он одинаково ускоряет прямую и обратную реакции, поэтому ни одна из них не «выигрывает».'},
+    {n:4,t:'Направления смещения нет: положение равновесия и Kc не изменились.'},
+    {n:5,t:'Проверка (вот здесь она решающая!): это катализатор → ответ «не смещается». Равновесие лишь устанавливается быстрее.'}]}
+];
+{
+  let ex=0,i=-1;
+  const nodes=$$('.node',$('#flow')),brs=$$('.br',$('#flow')),step=$('#exStep'),prev=$('#exPrev'),next=$('#exNext');
+  function show(){
+    const st=EX[ex].steps;
+    nodes.forEach(n=>n.classList.remove('on'));brs.forEach(b=>b.classList.remove('on'));
+    if(i<0){step.innerHTML='Выберите пример и нажимайте «Следующий шаг» — алгоритм подсветится сверху.'}
+    else{const s=st[i];nodes.find(n=>+n.dataset.n===s.n).classList.add('on');
+      if(s.b)brs.find(b=>b.dataset.b===s.b).classList.add('on');
+      step.innerHTML=`<b>Шаг ${i+1} из ${st.length}.</b> ${s.t}`}
+    prev.disabled=i<0;next.disabled=i>=st.length-1;
+    prev.setAttribute('aria-disabled',prev.disabled);next.setAttribute('aria-disabled',next.disabled);
+  }
+  tablist($('#exTabs'),t=>{ex=+t.dataset.ex;i=-1;show()});
+  next.addEventListener('click',()=>{if(i<EX[ex].steps.length-1){i++;show()}});
+  prev.addEventListener('click',()=>{if(i>=0){i--;show()}});
+  $('#exReset').addEventListener('click',()=>{i=-1;show()});
+  show();
+}
+
+/* ===================== ТЕСТ ===================== */
+const QZ=[
+  {t:'dyn',type:'Один ответ',q:'Что означает «динамическое химическое равновесие»?',o:[['Скорости прямой и обратной реакций равны, обе реакции продолжаются',1],['Реакция полностью остановилась',0],['Концентрации всех веществ равны между собой',0],['Идёт только прямая реакция, обратная прекратилась',0]],e:'В равновесии прямая и обратная реакции идут с одинаковой скоростью. Поэтому концентрации остаются постоянными, но сами реакции не прекращаются.'},
+  {t:'rate',type:'Верно / неверно',q:'Верно ли: в состоянии равновесия концентрации реагентов и продуктов обязательно равны?',tf:true,o:[['Верно',0],['Неверно',1]],e:'Неверно. Равны скорости прямой и обратной реакций, а не концентрации. Количества веществ слева и справа могут сильно различаться (это зависит от Kc).'},
+  {t:'conc',type:'Один ответ',q:'N₂(г) + 3H₂(г) ⇄ 2NH₃(г). Из равновесной смеси часть NH₃ удалили. Куда смещается равновесие?',o:[['Вправо — NH₃ будет образовываться',1],['Влево',0],['Не смещается',0]],e:'Убрали продукт — система восполняет потерю: преобладает прямая реакция, в которой NH₃ образуется. Смещение вправо.'},
+  {t:'press',type:'Один ответ',q:'2SO₂(г) + O₂(г) ⇄ 2SO₃(г). Как повлияет повышение давления?',o:[['Сместит равновесие вправо',1],['Сместит равновесие влево',0],['Не повлияет',0]],e:'Слева 2 + 1 = 3 моль газа, справа 2 моль. Повышение давления смещает равновесие к меньшему числу молей газа — вправо.'},
+  {t:'press',type:'Один ответ',q:'H₂(г) + I₂(г) ⇄ 2HI(г). Давление повысили. Что произойдёт с положением равновесия?',o:[['Сместится вправо',0],['Сместится влево',0],['Не изменится',1]],e:'Слева 1 + 1 = 2 моль газа, справа тоже 2. Число газовых молей одинаково, поэтому давление не смещает равновесие (обе скорости растут одинаково).'},
+  {t:'press',type:'Один ответ',q:'CO₂(г) + C(тв) ⇄ 2CO(г). Давление повысили. Куда смещается равновесие?',o:[['Влево',1],['Вправо',0],['Не смещается',0]],e:'Твёрдый углерод в подсчёт не входит. Газов слева 1 моль (CO₂), справа 2 моль (CO). При повышении давления равновесие идёт к меньшему числу молей газа — влево.'},
+  {t:'temp',type:'Один ответ',q:'N₂(г) + 3H₂(г) ⇄ 2NH₃(г), ΔH < 0 (прямая реакция экзотермическая). Систему нагрели. Куда смещается равновесие?',o:[['Влево — к реагентам',1],['Вправо — к NH₃',0],['Не смещается',0]],e:'Нагревание благоприятствует эндотермическому направлению. Прямая реакция экзотермическая, значит, эндотермическая — обратная. Равновесие смещается влево, Kc уменьшается.'},
+  {t:'cat',type:'Несколько ответов',q:'Выберите все верные утверждения о катализаторе.',multi:true,o:[['Сокращает время достижения равновесия',1],['Не изменяет значение константы равновесия',1],['Смещает равновесие в сторону продуктов',0],['Ускоряет только прямую реакцию',0]],e:'Катализатор одинаково ускоряет прямую и обратную реакции. Он быстрее приводит систему к равновесию, но не меняет ни положение равновесия, ни Kc.'},
+  {t:'kc',type:'Один ответ',q:'Какое выражение для Kc верно для реакции CO₂(г) + C(тв) ⇄ 2CO(г)?',o:[['[CO]² / [CO₂]',1],['[CO]² / ([CO₂]·[C])',0],['[CO] / [CO₂]',0],['[CO₂] / [CO]²',0]],e:'Продукты — в числителе, реагенты — в знаменателе, степени равны коэффициентам. Твёрдый углерод в выражение Kc не входит.'}
+];
+const TOPIC={dyn:['Динамическое равновесие','#dyn'],rate:['Скорости и концентрации','#dyn'],conc:['Концентрация','#rules'],press:['Давление','#rules'],temp:['Температура','#rules'],cat:['Катализатор','#cat'],kc:['Константа Kc','#kc']};
+{
+  const box=$('#quizBox');let i=0,score=0,miss={},opts=[],sel=new Set(),done=false;
+  const shuffle=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
+  function render(focus){
+    if(i>=QZ.length)return result();
+    const q=QZ[i];done=false;sel=new Set();opts=q.tf?q.o.slice():shuffle(q.o);
+    box.innerHTML=`<div class="qprog" role="progressbar" aria-label="Прогресс теста" aria-valuemin="0" aria-valuemax="${QZ.length}" aria-valuenow="${i}"><i style="transform:scaleX(${i/QZ.length})"></i></div>
+<p class="cap" style="color:#3b4b69;margin:0">Вопрос ${i+1} из ${QZ.length} · ${q.type}</p>
+<h3 id="qh" tabindex="-1" style="margin-top:6px">${q.q}</h3>
+<div class="qopts" role="group" aria-labelledby="qh">${opts.map((o,k)=>`<button type="button" class="opt" data-k="${k}" ${q.multi?'aria-pressed="false"':''}><span class="mk2" aria-hidden="true">${q.multi?'☐':String.fromCharCode(65+k)}</span><span>${o[0]}</span></button>`).join('')}</div>
+<div id="qfb" aria-live="polite"></div>
+<div class="btnrow" id="qbtns">${q.multi?'<button type="button" class="btn sm" id="qcheck" disabled>Проверить</button>':''}</div>`;
+    $$('.opt',box).forEach(b=>b.addEventListener('click',()=>pick(+b.dataset.k,b)));
+    const c=$('#qcheck');if(c)c.addEventListener('click',()=>reveal());
+    if(focus)$('#qh').focus({preventScroll:true});
+  }
+  function pick(k,b){
+    if(done)return;const q=QZ[i];
+    if(q.multi){const on=!sel.has(k);on?sel.add(k):sel.delete(k);b.setAttribute('aria-pressed',on);$('.mk2',b).textContent=on?'☑':'☐';b.style.borderColor=on?'#5a3fd6':'';$('#qcheck').disabled=!sel.size;return}
+    sel=new Set([k]);reveal();
+  }
+  function reveal(){
+    const q=QZ[i];done=true;
+    const okSet=new Set(opts.map((o,k)=>o[1]?k:-1).filter(k=>k>=0));
+    const good=sel.size===okSet.size&&[...sel].every(k=>okSet.has(k));
+    $$('.opt',box).forEach((b,k)=>{
+      b.disabled=true;b.style.borderColor='';
+      if(okSet.has(k)){b.classList.add('right');$('.mk2',b).textContent='✓'}
+      else if(sel.has(k)){b.classList.add('wrong');$('.mk2',b).textContent='✗'}
+    });
+    if(good)score++;else miss[q.t]=(miss[q.t]||0)+1;
+    $('#qfb').innerHTML=`<div class="fb ${good?'ok':'no'}"><b>${good?'✓ Верно.':'✗ Неверно.'}</b> ${q.e}</div>`;
+    const last=i===QZ.length-1;
+    $('#qbtns').innerHTML=`<button type="button" class="btn warm sm" id="qnext">${last?'Показать результат':'Дальше →'}</button>`;
+    $('#qnext').addEventListener('click',()=>{i++;render(true)});
+    $('#qnext').focus({preventScroll:true});
+  }
+  function result(){
+    const weak=Object.keys(miss),n=QZ.length;
+    box.innerHTML=`<div class="qprog" aria-hidden="true"><i style="transform:scaleX(1)"></i></div><h3 id="qh" tabindex="-1">Результат</h3>
+<div class="score" aria-live="polite">${score} из ${n}</div>
+<p style="color:#3b4b69">${score===n?'Безупречно! Вы уверенно владеете темой.':score>=n-2?'Хороший результат — осталось подтянуть пару деталей.':score>=n/2?'Неплохая основа, но есть темы, которые стоит повторить.':'Тема пока даётся непросто — это нормально. Пройдите разделы ещё раз и попробуйте снова.'}</p>
+${weak.length?`<div class="weak"><b style="color:#0d1b38">Рекомендуем повторить:</b><br>${weak.map(t=>`<a href="${TOPIC[t][1]}">${TOPIC[t][0]}</a>`).join('')}</div>`:'<p><b style="color:#0b7a5a">Слабых тем не обнаружено.</b></p>'}
+<div class="btnrow" style="margin-top:16px"><button type="button" class="btn warm" id="qagain">↺ Пройти ещё раз</button></div>`;
+    $('#qagain').addEventListener('click',()=>{i=0;score=0;miss={};render(true)});
+    $('#qh').focus({preventScroll:true});
+  }
+  render(false);
+}
+
+/* ===================== НАВИГАЦИЯ, ПРОГРЕСС, ПОЯВЛЕНИЕ ===================== */
+{
+  const secs=$$('main > section'),links=$$('#nav a'),bar=$('#progress'),top=$('#toTop'),nav=$('#nav');
+  let tick=false,curId='';
+  function onScroll(){
+    tick=false;
+    const h=document.documentElement,max=h.scrollHeight-h.clientHeight,y=window.scrollY;
+    bar.style.transform=`scaleX(${max>0?clamp(y/max,0,1):0})`;
+    top.classList.toggle('show',y>700);
+    let cur=secs[0].id;secs.forEach(s=>{if(s.getBoundingClientRect().top<=170)cur=s.id});
+    if(max-y<40)cur=secs[secs.length-1].id;
+    if(cur!==curId){curId=cur;links.forEach(a=>{const on=a.getAttribute('href')==='#'+cur;if(on)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');
+      if(on){const l=a.offsetLeft-nav.clientWidth/2+a.offsetWidth/2;if(nav.scrollWidth>nav.clientWidth)nav.scrollLeft=l}})}
+  }
+  window.addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(onScroll)}},{passive:true});
+  window.addEventListener('resize',onScroll);onScroll();
+  top.addEventListener('click',()=>{window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});$('#top').focus&&setTimeout(()=>$('.brand').focus({preventScroll:true}),50)});
+  const rv=$$('.rv');
+  if('IntersectionObserver' in window&&!reduce){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08,rootMargin:'0px 0px -6% 0px'});
+    rv.forEach(el=>io.observe(el));
+  }else rv.forEach(el=>el.classList.add('in'));
+}
+/* пауза */
+{
+  const b=$('#pauseBtn'),t=$('#pauseTxt');
+  const apply=()=>{b.setAttribute('aria-checked',paused);t.textContent=paused?'Продолжить анимацию':'Пауза анимации'};
+  b.addEventListener('click',()=>{paused=!paused;apply()});
+  if(reduce){b.title='Включён режим уменьшенного движения: анимация заменена мгновенными переходами'}
+}
+</script></body></html>
